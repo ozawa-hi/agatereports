@@ -1,0 +1,1 @@
+CREATE SCHEMA `agatereports` DEFAULT CHARACTER SET utf8 ;

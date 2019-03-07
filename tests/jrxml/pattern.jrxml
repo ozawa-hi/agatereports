@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pattern" pageWidth="1191" pageHeight="842" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="82aad9f9-aab1-47b6-85b8-8591ba77175e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Docker Mysql5.7.24"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM orders  WHERE  orderid < 10266]]>
+	</queryString>
+	<field name="orderid" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="orderid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="customerid" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customerid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="employeeid" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="employeeid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="orderdate" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="orderdate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="requireddate" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="requireddate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="shippeddate" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="shippeddate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="shipvia" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="shipvia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="freight" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="freight"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="shipname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="shipname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="shipaddress" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="shipaddress"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="shipcity" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="shipcity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="shipregion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="shipregion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="shippostalcode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="shippostalcode"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="shipcountry" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="shipcountry"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<detail>
+		<band height="43">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="8334b020-cab7-4ebc-9f3a-8e107250889e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<textField pattern="{:,}">
+				<reportElement x="100" y="0" width="100" height="30" uuid="8b58df15-8cb3-4c64-8bbb-ba80574b2130"/>
+				<textFieldExpression><![CDATA[$F{orderid}]]></textFieldExpression>
+			</textField>
+			<textField pattern="%Y/%m/%d">
+				<reportElement x="200" y="0" width="100" height="30" uuid="70c557fa-7971-4fb8-8545-a03fe65eff4a"/>
+				<textFieldExpression><![CDATA[$F{requireddate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="2" width="100" height="30" uuid="a91420b9-9992-480b-a85c-08da39972d23"/>
+				<textFieldExpression><![CDATA[$F{shipname} + '_test']]></textFieldExpression>
+			</textField>
+			<textField pattern="{:,}">
+				<reportElement x="550" y="4" width="100" height="30" uuid="13479ee3-5903-4a54-9bdd-a8072184cba9"/>
+				<textFieldExpression><![CDATA[$F{orderid}+$F{employeeid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="2" width="100" height="30" uuid="a6d80fd0-2d0e-4cc2-87e9-3dd842c28377"/>
+				<textFieldExpression><![CDATA[$F{employeeid}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
