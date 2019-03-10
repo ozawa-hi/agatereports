@@ -32,9 +32,10 @@ def set_pen_attr(element, attributes):
         }
 
 
-def draw_line(report_info, x1, y1, x2, y2, line_style, line_width, line_color):
+def draw_line(report, x1, y1, x2, y2, line_style, line_width, line_color):
     """
     Draw a line on report_info.
+    :param report: dictionary holding report information
     :param x1: start x coordinate
     :param y1: start y coordinate
     :param x2: end x coordinate
@@ -43,26 +44,29 @@ def draw_line(report_info, x1, y1, x2, y2, line_style, line_width, line_color):
     :param line_width: line width
     :param line_color: line color in #FFFFFF format
     """
-    # global report
+    report['canvas'].saveState()
 
-    report_info['canvas'].saveState()
-
-    report_info['canvas'].setDash(line_style_dict.get(line_style, (1)))
-    report_info['canvas'].setLineWidth(line_width)
+    report['canvas'].setDash(line_style_dict.get(line_style, (1)))
     if line_color is not None:
-        report_info['canvas'].setStrokeColor(colors.HexColor(line_color))
-    report_info['canvas'].line(x1, y1, x2, y2)
-    if line_style == 'Double':  # double line consists of wide solid line with thin white line in between
-        report_info['canvas'].setLineWidth(line_width*0.5)
-        report_info['canvas'].setStrokeColor(colors.HexColor('#FFFFFF'))
-        report_info['canvas'].line(x1, y1, x2, y2)
+        report['canvas'].setStrokeColor(colors.HexColor(line_color))
 
-    report_info['canvas'].restoreState()
+    if line_style != 'Double':  # double line consists of wide solid line with thin white line in between
+        report['canvas'].setLineWidth(line_width)
+        report['canvas'].line(x1, y1, x2, y2)
+    else:
+        report['canvas'].setLineWidth(line_width*1.5)
+        report['canvas'].line(x1, y1, x2, y2)
+        report['canvas'].setLineWidth(line_width*0.7)
+        report['canvas'].setStrokeColor(colors.HexColor('#FFFFFF'))
+        report['canvas'].line(x1, y1, x2, y2)
+
+    report['canvas'].restoreState()
 
 
 def draw_diagonal_line(report, attributes, line_style, line_width, line_color):
     """
     Process to jrxml diagonal line.
+    :param report: dictionary holding report information
     :param attributes: line attributes. Attributes from "reportElement" element.
     :param line_style: line style
     :param line_width: line width
@@ -87,6 +91,7 @@ def draw_diagonal_line(report, attributes, line_style, line_width, line_color):
 def process_box_element(report, element, attributes):
     """
     Draw borders around a component.
+    :param report: dictionary holding report information
     :param element: jrxml box element
     :param attributes:
     """
@@ -165,23 +170,25 @@ def process_box_element(report, element, attributes):
     report['canvas'].restoreState()
 
 
-def process_line(report, element, row_data):
+def process_line(report, element):
     """
     Process jrxml line element.
+    :param report: dictionary holding report information
     :param element: jrxml line element
     """
     line_element = element.get('child')
     if line_element is not None:
-        reportElement = process_reportElement(report, line_element[0].get('reportElement'))  # get reportElement
+        report_element = process_reportElement(report, line_element[0].get('reportElement'))  # get reportElement
         # get attributes on line element (e.g. "direction") to determine which direction to draw a line
-        add_attr2attributes(element, reportElement)
+        add_attr2attributes(element, report_element)
 
         # set attributes from following graphicElement
-        reportElement = process_graphicElement(report, line_element, reportElement)
+        # reportElement = process_graphicElement(report, line_element, report_element)
+        process_graphicElement(report, line_element, report_element)
 
         # set line attributes
-        line_style = reportElement.get('lineStyle')
-        line_width = float(reportElement.get('lineWidth', '1.0'))
-        line_color = reportElement.get('lineColor')
+        line_style = report_element.get('lineStyle')
+        line_width = float(report_element.get('lineWidth', '1.0'))
+        line_color = report_element.get('lineColor')
 
-        draw_diagonal_line(report, reportElement, line_style, line_width, line_color)
+        draw_diagonal_line(report, report_element, line_style, line_width, line_color)

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fonts" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6fce9fb1-3195-4965-91f2-32e483c08a5e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="360" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="170" width="100" height="30" uuid="c40dfa83-4188-4402-ad82-68c09d7ac31b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="IPAGothic" size="16"/>
+				</textElement>
+				<text><![CDATA[IPAゴシック]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="34356844-6137-49d4-95f7-86135ec9a3ad"/>
+				<text><![CDATA[Static Text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="30" uuid="0daf0fa1-38cd-424a-9b49-6adfa7b8f1c6"/>
+				<textElement>
+					<font fontName="Helvetica-Bold" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Static Text Bold]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="30" uuid="c5d5188b-fbcc-4f6d-9f5d-b5854a55fc37"/>
+				<textElement>
+					<font fontName="Helvetica-Oblique" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Static Text Italic]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="40" width="100" height="30" uuid="7c2bbcc6-8f32-4778-8ad3-0ca571b1b3d5"/>
+				<textElement>
+					<font fontName="Times_New_Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Times_New_Roman bold]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="30" uuid="5fcfa88c-aa39-49af-895b-2044bb4fb283"/>
+				<textElement>
+					<font fontName="Times_New_Roman"/>
+				</textElement>
+				<text><![CDATA[Times_New_Roman normal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="40" width="100" height="30" uuid="62ac3d20-34f6-4952-ae13-f4d99df5c00d"/>
+				<textElement>
+					<font fontName="Times_New_Roman" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Times_New_Roman italic]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="70" width="100" height="30" uuid="c512469b-a472-4c93-b7a6-64ab001314f5"/>
+				<textElement>
+					<font fontName="Times-Italic" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Times italic]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="70" width="100" height="30" uuid="0be1b346-9c7f-4a44-bc04-663eee3df9ab"/>
+				<textElement>
+					<font fontName="Times-Bold" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Times]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="100" height="30" uuid="71ea4ffd-c380-4465-9db8-48d3ab04feca"/>
+				<textElement>
+					<font fontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Times]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="100" height="30" uuid="ebdf46fd-bfad-45af-bb99-70c0ce3c3716"/>
+				<textElement>
+					<font fontName="Vera"/>
+				</textElement>
+				<text><![CDATA[Vera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="100" width="100" height="30" uuid="11c93b3c-92ae-4703-b31c-bc104d97c7a6"/>
+				<textElement>
+					<font fontName="Vera" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vera Bold]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="100" width="100" height="30" uuid="4ee6bf7b-89fe-4cb6-aebc-216ce0053f9a"/>
+				<textElement>
+					<font fontName="Vera" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Vera Italic]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="100" width="100" height="30" uuid="5a171b9d-40ef-4f09-87c5-ffcc29b5972f"/>
+				<textElement>
+					<font fontName="Vera" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Vera Bold Italic]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="40" width="100" height="30" uuid="2dc35f9b-7b12-4f6b-bab2-b1f3c530acdd"/>
+				<textElement>
+					<font fontName="Times_New_Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Times_New_Roman Bold Italic]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="70" width="100" height="30" uuid="4ebaaa70-5afb-4774-8d91-1c4ad6765760"/>
+				<textElement>
+					<font fontName="Times-BoldItalic" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Times BoldItalic]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="130" width="100" height="30" uuid="1785ae55-353e-46ec-b693-9cc1d2aa1b3c"/>
+				<textElement>
+					<font fontName="Verdana"/>
+				</textElement>
+				<text><![CDATA[Verdana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="130" width="100" height="30" uuid="db3b8c87-ec9a-40a9-8353-7fe42448aaf0"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Verdana Bold]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="130" width="100" height="30" uuid="35337db7-e6c4-4c81-ace1-9e21d0fc6730"/>
+				<textElement>
+					<font fontName="Verdana" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Verdana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="130" width="100" height="30" uuid="5caa0efe-8c2c-464a-98a1-a972a130b369"/>
+				<textElement>
+					<font fontName="Verdana" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Verdana]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

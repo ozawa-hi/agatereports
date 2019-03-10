@@ -41,9 +41,10 @@ def draw_rectangle(report, attributes, line_style, line_width, fore_color, backg
     report['canvas'].restoreState()
 
 
-def process_rectangle(report, element, row_data):
+def process_rectangle(report, element):
     """
     Process jrxml "rectangle" element.
+    :param report:
     :param element:
     :return:
     """
@@ -72,8 +73,8 @@ def process_rectangle(report, element, row_data):
 
         # draw rectangle
         if line_style == 'Double':  # double line consists of wide solid line with thin white line in between
-            draw_rectangle(report, attributes, line_style_dict['Solid'], line_width*1.0, fore_color, background_color, fill)
-            draw_rectangle(report, attributes, line_style_dict['Solid'], line_width*0.5, '#FFFFFF', background_color, fill)
+            draw_rectangle(report, attributes, line_style_dict['Solid'], line_width*1.5, fore_color, background_color, fill)
+            draw_rectangle(report, attributes, line_style_dict['Solid'], line_width*0.3, '#FFFFFF', background_color, fill)
         else:
             draw_rectangle(report, attributes, line_style, line_width, fore_color, background_color, fill)
 
@@ -81,6 +82,7 @@ def process_rectangle(report, element, row_data):
 def draw_ellipse(report, attributes, line_style, line_width, fore_color, background_color, fill):
     """
     Draw an ellipse on report_info.
+    :param report:
     :param attributes:
     :param line_style:
     :param line_width:
@@ -108,9 +110,10 @@ def draw_ellipse(report, attributes, line_style, line_width, fore_color, backgro
     report['canvas'].restoreState()
 
 
-def process_ellipse(report, element, row_data):
+def process_ellipse(report, element):
     """
-    Process jrxml 'ellipse' element.
+    Process jrxml 'ellipse' element
+    :param report:.
     :param element:
     """
     # global report_info
@@ -141,3 +144,68 @@ def process_ellipse(report, element, row_data):
             draw_ellipse(report, report_element, line_style_dict['Solid'], line_width * 0.5, '#FFFFFF', background_color, fill)
         else:
             draw_ellipse(report, report_element, line_style, line_width, fore_color, background_color, fill)
+
+
+def draw_circle(report, attributes, line_style, line_width, fore_color, background_color, fill):
+    """
+    Draw an circle.
+    :param report:
+    :param attributes:
+    :param line_style:
+    :param line_width:
+    :param fore_color:
+    :param background_color:
+    :param fill:
+    :return:
+    """
+    # global report_info
+
+    report['canvas'].saveState()
+
+    report['canvas'].setDash(line_style_dict.get(line_style, (1)))
+    report['canvas'].setLineWidth(line_width)
+    if fore_color is not None:
+        report['canvas'].setStrokeColor(colors.HexColor(fore_color))
+    if background_color is not None:
+        report['canvas'].setFillColor(colors.HexColor(background_color))
+    # ellipse(cs, cy, rx, ry, stroke=1, fill=0)
+    report['canvas'].circle(attributes['x'],
+                                  report['cur_y'] - attributes['y'],
+                                  attributes['radius'],
+                                  fill=fill)
+    report['canvas'].restoreState()
+
+
+def process_circle(report, element):
+    """
+    Process jrxml 'ellipse' element.
+    :param element:
+    """
+    # global report_info
+
+    ellipse_element = element.get('child')
+    if ellipse_element is not None:
+        report_element = process_reportElement(report, ellipse_element[0].get('reportElement'))  # get reportElement
+
+        # set attributes from following graphicElement
+        report_element = process_graphicElement(report, ellipse_element, report_element)
+
+        # set line attributes
+        line_style = report_element.get('lineStyle')
+        line_width = float(report_element.get('lineWidth', '1.0'))
+        fore_color = report_element.get('forecolor')
+
+        mode = report_element.get('mode')
+        background_color = report_element.get('backcolor')
+        if mode == 'Opaque':
+            fill = 1
+        else:
+            fill = 0
+
+        # draw ellipse
+        if line_style == 'Double':  # double line consists of wide solid line with thin white line in between
+            draw_circle(report, report_element, line_style_dict['Solid'], line_width * 1.0, fore_color,
+                        background_color, fill)
+            draw_circle(report, report_element, line_style_dict['Solid'], line_width * 0.5, '#FFFFFF', background_color, fill)
+        else:
+            draw_circle(report, report_element, line_style, line_width, fore_color, background_color, fill)

@@ -5,12 +5,11 @@ Pure Python engine to generate reports from JasperReports jrxml file.
 Introduction
 ------------
 AgateReports is a pure Python tool to generate reports without extensive coding.
-Jaspersoft Studio can be used to graphically place location of elements in a report layout.
-https://sourceforge.net/projects/jasperstudio/
+It currently relies on Jaspersoft Studio `<https://sourceforge.net/projects/jasperstudio/`_ to graphically position reporting elements on a report layout.
 
 This package aims to be a solution to following users:
 - Python developers who want to create a report using GUI tool.
-- Users who wants to create report layout visually with minimum programming and without using Java
+- Users who want to modify existing reports without programming.
 
 Differences with JasperReports
 ------------------------------
@@ -33,3 +32,6 @@ ReportLab
 Pillow
 MySQL Connector/Python
 psycopg2
+
+Installation
+Usage

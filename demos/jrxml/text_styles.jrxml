@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="text_styles" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c8553a1a-566e-4466-8d72-e272808970d1">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="297" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="4e705369-a5f7-4b4f-a218-b99dd73aff8c"/>
+				<text><![CDATA[Plain Text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="30" uuid="1803bc61-caac-4e09-9d91-56cc636332ba"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Bordered Text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="40" width="100" height="30" uuid="20147785-c95b-4587-8a55-d2b719fb4917"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="2.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dashed" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FA0905"/>
+				</box>
+				<text><![CDATA[Different Bordered Text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="220" height="30" uuid="345d4cf1-c2bc-4838-b7f5-7ff77881fec9"/>
+				<textElement>
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[Large Font]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="80" width="100" height="30" uuid="0b85c4b7-acf2-4ed1-a25c-fd519560e8a8"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Small font]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="40" width="100" height="30" uuid="2f75b8ed-3df2-4541-a5f2-162582f916af"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Dashed" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Different Border Style]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="100" height="30" uuid="08af58f1-86b8-47c4-83d5-244c7b954b12"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Left alignment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="120" width="100" height="30" uuid="d44811db-adc0-4152-8462-df9bbc0adb2d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Centered]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="120" width="100" height="30" uuid="11fc52e1-2809-4690-830f-a7ff22bfef38"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Right alignment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="160" width="100" height="30" uuid="569fbbd7-b517-42c2-b5c8-b4e3cfee9ac5"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Top alignment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="160" width="100" height="30" uuid="1f03a9e0-fecd-40b0-865b-d5e7fb0cefe0"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[MIddle alignment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="160" width="100" height="30" uuid="a49edcf2-1633-4fa2-8664-21036db35809"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Bottom alignment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="160" width="100" height="30" uuid="bb3b0264-a35a-4a0f-a3a0-8fcdc66ce49b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Centered and middle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="200" width="100" height="30" forecolor="#FA0A36" uuid="69d978fe-4cef-4b31-b1a1-0a72ec67677a"/>
+				<text><![CDATA[Font color]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="120" y="200" width="100" height="30" backcolor="#F0A40C" uuid="0d3fca2b-b024-48ab-b0bf-97527fee0444"/>
+				<text><![CDATA[Background color]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="0" width="100" height="30" uuid="4ef82209-1086-46f3-9761-47b24d567fce"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Underlined]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="0" width="100" height="30" uuid="7da7a0bb-0f77-4b9a-9116-2f3590772e1e"/>
+				<textElement>
+					<font isStrikeThrough="true"/>
+				</textElement>
+				<text><![CDATA[Strikethrough]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="240" width="100" height="30" uuid="82471370-7aaf-4202-8a02-380515f004e4"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<text><![CDATA[Right indent]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="120" width="100" height="30" uuid="8b243e96-ef53-4a19-bd87-fd83430a9312"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Justified]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="240" width="100" height="30" uuid="df3f9456-cd8d-47fd-81fd-5a6180735af9"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" markup="">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Left indent]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

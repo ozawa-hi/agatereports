@@ -2,7 +2,7 @@ from agatereports.sample.engine.components.barcode import process_barbecue, proc
 from agatereports.sample.engine.bands.elements import process_reportElement
 
 """
-Supported components.
+Supported components. Barcode4j barcodes are also defined here.
 """
 componentElement_dict = {
     'reportElement': None,
@@ -21,21 +21,23 @@ componentElement_dict = {
     'Interleaved2Of5': process_barcode4j,
     'MSI': process_barcode4j,
     'PostNet': process_barcode4j,
+    'POSTNET': process_barcode4j,
     'QRCode': process_barcode4j,
     'USPS_4State': process_barcode4j
 }
 
 
-def process_componentElement(report, element, row_data):
+def process_componentElement(report, element):
     """
     Process component jrxml element.
+    :param report: dictionary holding report information
     :param element: jrxml component element
-    :param row_data: a row from data source
+    # :param row_data: a row from data source
     """
     component_element = element.get('child')
     if component_element is not None:
-        reportElement = process_reportElement(report, component_element[0].get('reportElement'))  # get reportElement
+        report_element = process_reportElement(report, component_element[0].get('reportElement'))  # get reportElement
         for tag in component_element[1:]:
             for key, value in tag.items():
                 if componentElement_dict.get(key) is not None:
-                    componentElement_dict[key](report, key, value, reportElement, row_data)
+                    componentElement_dict[key](report, key, value, report_element)

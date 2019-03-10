@@ -6,20 +6,17 @@ from reportlab.graphics import renderPDF
 from agatereports.sample.engine.commonutilities import replace_text, add_attr2attributes
 
 
-def draw_basic_barcode(report, type, element, attributes, row_data):
+def draw_basic_barcode(report, barcode_type, element, attributes):
     """
     Draw barcode on report_info.
-    :param report_info: dictionary containing output information
-    :param type: class + method to draw barcode depending of barcode type
+    :param report: dictionary holding report information
+    :param barcode_type: class + method to draw barcode depending of barcode type
     :param element: jrxml element list
     :param attributes: dictionary of attributes to use when drawing an object
-    :param row_data: a row from data source
     """
-    # global report_info
-
     code_expression = element.get('codeExpression')
     if code_expression is not None:
-        data_value = str(replace_text(report, code_expression.get('value').strip('\"'), row_data, attributes))
+        data_value = str(replace_text(report, code_expression.get('value').strip('\"'), attributes))
         if attributes.get('checksumRequired', False):
             check_sum = 1
         else:
@@ -27,8 +24,8 @@ def draw_basic_barcode(report, type, element, attributes, row_data):
 
         report['canvas'].saveState()
 
-        barcode = type(data_value, barHeight=attributes.get('barHeight', attributes['height']), stop=1, checksum=check_sum)
-        # barcode.drawOn(report_info['report_info'], reportElement['x'], report_info['cur_y'] - reportElement['y'] - reportElement.get('barHeight', reportElement['height']))
+        barcode = barcode_type(data_value, barHeight=attributes.get('barHeight', attributes['height']), stop=1,
+                       checksum=check_sum)
 
         # scale barcode to specified width
         report['canvas'].translate(attributes['x'], report['cur_y'] - attributes['y'] - attributes['height'])
@@ -39,28 +36,24 @@ def draw_basic_barcode(report, type, element, attributes, row_data):
         report['canvas'].restoreState()
 
 
-def draw_advanced_barcode(report, type, element, attributes, row_data):
+def draw_advanced_barcode(report, barcode_type, element, attributes):
     """
     Advanced barcodes are barcodes that requires to be drawn to Drawing objects first.
     Barcodes that drawn to Drawing objects and then put on a report_info.
-    :param type:
+    :param report: dictionary holding report information
+    :param barcode_type:
     :param element:
     :param attributes:
-    :param row_data: a row from data source
     """
-    # global report_info
-
     code_expression = element.get('codeExpression')
     if code_expression is not None:
-        data_value = str(replace_text(report, code_expression.get('value').strip('\"'), row_data, attributes))
-        barcode = type(data_value)
+        data_value = str(replace_text(report, code_expression.get('value').strip('\"'), attributes))
+        barcode = barcode_type(data_value)
         bounds = barcode.getBounds()
         width = bounds[2] - bounds[0]
         height = bounds[3] - bounds[1]
 
         report['canvas'].saveState()
-        # Drawing(width, height), transform(a, b, c, d, e, f)
-        # d = Drawing(reportElement['width'], reportElement['height'], transform=[45./width,0,0,45./height,0,0])
         d = Drawing(attributes['width'], attributes['height'],
                     transform=[attributes.get('barWidth', attributes['width'])/ width, 0, 0,
                                attributes.get('barHeight', attributes['height']) / height, 0, 0])
@@ -72,6 +65,8 @@ def draw_advanced_barcode(report, type, element, attributes, row_data):
 
 """
 Values are (def to used to draw barcode on report_info, barcode component/def)
+List of supported Barbecue barcodes. Supported list of Barcode4j barcodes must also be defined in
+components.components.py
 """
 barcode_types_dict = {
     'Codabar': (draw_basic_barcode, common.Codabar),
@@ -89,19 +84,19 @@ barcode_types_dict = {
     'Int2of5': (draw_basic_barcode, common.I2of5),
     'MSI': (draw_basic_barcode, common.MSI),   # TODO need to check
     'PostNet': (draw_basic_barcode, usps.POSTNET),
+    'POSTNET': (draw_basic_barcode, usps.POSTNET),
     'QRCode': (draw_advanced_barcode, qr.QrCodeWidget),
     'USPS_4State': (draw_basic_barcode, usps4s.USPS_4State),
 }
 
 
-def process_barbecue(report, key, element, attributes, row_data):
+def process_barbecue(report, key, element, attributes):
     """
     Process jrxml barbecue component elements.
+    :param report: dictionary holding report information
     :param element: jrxml barbecue element
     :param attributes: attributes of this element
-    :param row_data: a row from data source
     """
-    # attributes = add_attr2attributes(element, attributes)
     add_attr2attributes(element, attributes)
     type = attributes.get('type')
     if type is not None:
@@ -109,19 +104,21 @@ def process_barbecue(report, key, element, attributes, row_data):
         if barcode_element_list is not None:
             barcode_type = barcode_types_dict.get(type)
             if barcode_type is not None:
-                barcode_type[0](report, barcode_type[1], barcode_element_list[0], attributes, row_data)
+                barcode_type[0](report, barcode_type[1], barcode_element_list[0], attributes)
 
 
-def process_barcode4j(report, key, element, attributes, row_data):
+def process_barcode4j(report, key, element, attributes):
     """
     Process jrxml jarcode4j element.
+    :param report: dictionary holding report information
     :param key:
     :param element:
     :param attributes:
-    :param row_data:  a row from data source
+    # :param row_data:  a row from data source
     """
     barcode_type = barcode_types_dict.get(key)
+
     if barcode_type is not None:
-        barcode_type[0](report, barcode_type[1], element.get('child')[0], attributes, row_data)
+        barcode_type[0](report, barcode_type[1], element.get('child')[0], attributes)
 
 

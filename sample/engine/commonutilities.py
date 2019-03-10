@@ -24,33 +24,29 @@ def add_attr2attributes(element, attributes, prefix=None):
     # return attributes
 
 
-def replace_fields(field_dict, expression, row_data, attributes):
+# def replace_fields(field_dict, expression, row_data, attributes):
+def replace_fields(report, expression, attributes):
     """
     Replace fields with value from data source.
     If the field is not in the database, do not replace.
+    :param report:
     :param expression: text to be processed
-    :param row_data: a row from data source
     :param attributes: attribute of the element being processed (i.e. 'isBlankWhenNull')
     :return: expression with $F{} replaced with values from data source when they exist
     """
-    # global report_info
-
-    if expression is None or row_data is None:
+    if expression is None or report['row_data'] is None:
         return None
     else:
         # find all field keys in specified expression
-        new_keys = [key[key.find("$F{") + 3:key.find("}")] for key in re.findall('\$F\{.*?\}', expression)]
-
-        # if report_info.get('field_dict') is not None:
-        if field_dict is not None:
+        new_keys = [key[key.find("$F{") + 3:key.find("}")] for key in re.findall(r'\$F\{.*?\}', expression)]
+        if report.get('field_dict') is not None:
             for key in new_keys:
-                # data_type = report_info['field_dict'].get(key)
-                data_type = field_dict.get(key)
+                data_type = report['field_dict'].get(key)
                 # TODO need to add more datatype
                 if data_type == 'java.lang.Integer':
-                    data_value = str(row_data.get(key, '$F{' + key + '}'))
+                    data_value = str(report['row_data'].get(key, '$F{' + key + '}'))
                 elif data_type == 'java.sql.Timestamp':
-                    date_time = row_data.get(key, '$F{' + key + '}')
+                    date_time = report['row_data'].get(key, '$F{' + key + '}')
                     if type(date_time) is not datetime.datetime:
                         data_value = date_time
                     else:
@@ -60,12 +56,12 @@ def replace_fields(field_dict, expression, row_data, attributes):
                                      + str(date_time.tzinfo) + ')'
                 else:
                     is_blank_when_null = attributes.get('isBlankWhenNull')
-                    value = row_data.get(key, '$F{' + key + '}')
+                    value = report['row_data'].get(key, '$F{' + key + '}')
                     if is_blank_when_null and value is None:
                         # data_value = ''
                         return ''
                     else:
-                        data_value = '"' + str(row_data.get(key, '$F{' + key + '}')) + '"'
+                        data_value = '"' + str(report['row_data'].get(key, '$F{' + key + '}')) + '"'
                 expression = expression.replace('$F{' + key + '}', data_value)
         return expression
         # try:
@@ -78,17 +74,13 @@ def replace_variables(variables, expression, attributes):
     """
     Replace fields with value from data source.
     If the field is not in the database, do not replace.
+    :param variables:
     :param expression:
-    :param row_data: a row from data source
     :param attributes:
     :return:
     """
-    # global variables
-
-    # str_expression = str(expression)
-    # str_expression = expression
     # find all variable keys in specified expression
-    new_keys = [key[key.find("$V{") + 3:key.find("}")] for key in re.findall('\$V\{.*?\}', expression)]
+    new_keys = [key[key.find("$V{") + 3:key.find("}")] for key in re.findall(r'\$V\{.*?\}', expression)]
 
     for key in new_keys:
         var_info = variables.get(key)
@@ -121,16 +113,17 @@ def replace_variables(variables, expression, attributes):
     return expression
 
 
-def replace_text(report, expression, row_data, attributes):
+def replace_text(report, expression, attributes):
     """
     Replace Field and Variables with values ($F{} and $V{}) and evaluate expression.
+    :report: dictionary holding report information
+    :param report: dictionary holding report information
     :param expression: text element to evaluate
-    :param row_data: a row from data source
     :param attributes: attributes of text element to output
     :return: evaluated expression ready for output
     """
-    expression = replace_fields(report.get('field_dict'), expression=expression, row_data=row_data, attributes=attributes)   # replace $F{} with values
-    expression = replace_variables(report.get('variables'), expression, attributes)          # replace $V{} with values
+    expression = replace_fields(report, expression=expression, attributes=attributes)   # replace $F{} with values
+    expression = replace_variables(report.get('variables'), expression, attributes)     # replace $V{} with values
     try:
         return eval(expression)
     except SyntaxError:
@@ -141,9 +134,9 @@ def replace_text(report, expression, row_data, attributes):
 
 def strip_fname(name):
     """
-    strip wrapper (e.g. F${}, V${}, P${}) from name.
-    :param element: name to string.
-    :return: element name without wrapper.
+    strip wrapper (e.g. F${}, V${}, P${}) from name to get ID.
+    :param name: string to strip
+    :return: element name without wrapper text
     """
     return name[3:-1]
 

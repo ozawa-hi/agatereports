@@ -56,54 +56,59 @@ except:
 # TODO need performance improvement.
 
 
-def generate_report(input_filename, output_filename, data_source, fonts=None, report_type='pdf'):
+def generate_report(jrxml_filename, output_filename, data_source, fonts=None, report_type='pdf'):
     """
     Generate pdf file.
-    :param input_filename: name of jrxml file to use.
+    :param jrxml_filename: name of jrxml file to use.
     :param output_filename: name of output pdf file.
     :param data_source:
     :parm fonts:
     """
-    report_info = dict(properties={},
-                       variables={  # initial system variables
-                           'PAGE_NUMBER': {'value': 1, 'class': 'java.lang.Integer'},
-                           'MASTER_CURRENT_PAGE': {'value': None, 'class': 'java.lang.Integer'},
-                           'MASTER_TOTAL_PAGES': {'value': None, 'class': 'java.lang.Integer'},
-                           'COLUMN_NUMBER': {'value': 1, 'class': 'java.lang.Integer'},
-                           'REPORT_COUNT': {'value': 0, 'class': 'java.lang.Integer'},
-                           'PAGE_COUNT': {'value': 0, 'class': 'java.lang.Integer'},
-                           'COLUMN_COUNT': {'value': 0, 'class': 'java.lang.Integer'}
-                       }
-                       )
+    if input is None or jrxml_filename is None:
+        print('please specify jrxml filename and output filename to generate.')
+    else:
+        report_info = dict(properties={},
+                           variables={  # initial system variables
+                               'PAGE_NUMBER': {'value': 1, 'class': 'java.lang.Integer'},
+                               'MASTER_CURRENT_PAGE': {'value': None, 'class': 'java.lang.Integer'},
+                               'MASTER_TOTAL_PAGES': {'value': None, 'class': 'java.lang.Integer'},
+                               'COLUMN_NUMBER': {'value': 1, 'class': 'java.lang.Integer'},
+                               'REPORT_COUNT': {'value': 0, 'class': 'java.lang.Integer'},
+                               'PAGE_COUNT': {'value': 0, 'class': 'java.lang.Integer'},
+                               'COLUMN_COUNT': {'value': 0, 'class': 'java.lang.Integer'}
+                           },
+                           pre_row_data={}, # previous row from datasource
+                           row_data={}      # current row drom datasource
+                           )
 
-    report_info['main_datasource'] = data_source
+        report_info['main_datasource'] = data_source
 
-    json = parse_jrxml(input_filename)
-    jasper_report_element = json.get('jasperReport')
-    process_jasperReport_element(report_info, jasper_report_element)
+        json = parse_jrxml(jrxml_filename)
+        jasper_report_element = json.get('jasperReport')
+        process_jasperReport_element(report_info, jasper_report_element)
 
-    # create report_info
-    create_canvas(report_info, output_filename)
-    report_info['output_filename'] = output_filename
+        # create report_info
+        report_info['output_filename'] = output_filename
+        create_canvas(report_info)
 
-    # set fonts if any
-    report_info['available_fonts'] = set_fonts(fonts)
+        # set fonts if any
+        report_info['available_fonts'] = set_fonts(fonts)
 
-    # set band's element to global report_info[]
-    bands = jasper_report_element.get('child')
-    for key, value in bands.items():
-        report_info[key] = value
+        # set band's element to global report_info[]
+        bands = jasper_report_element.get('child')
+        for key, value in bands.items():
+            report_info[key] = value
 
-    # set column footer and footer heights. This is used to calculate available height for details band.
-    report_info['col_footer_height'] = calc_column_footer_band_height(report_info)
-    report_info['page_footer_height'] = calc_page_footer_band_height(report_info)
-    report_info['printingFooter'] = False    # flag to denote if printing out column and page footers
+        # set column footer and footer heights. This is used to calculate available height for details band.
+        report_info['col_footer_height'] = calc_column_footer_band_height(report_info)
+        report_info['page_footer_height'] = calc_page_footer_band_height(report_info)
+        report_info['printingFooter'] = False    # flag to denote if printing out column and page footers
 
-    process_bands(report_info, bands)
+        process_bands(report_info, bands)
 
 
 if __name__ == '__main__':
-    filename = 'shapes'
+    filename = 'barcodes'
 
     input_filename = '../../tests/jrxml/' + filename + '.jrxml'  # input jrxml filename
     output_filename = '../../tests/output/pdf_' + filename + '.pdf'

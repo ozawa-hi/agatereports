@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="shapes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="82aad9f9-aab1-47b6-85b8-8591ba77175e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="457">
+			<ellipse>
+				<reportElement mode="Transparent" x="120" y="240" width="100" height="50" isPrintInFirstWholeBand="true" forecolor="#0A22F7" backcolor="#F20C2B" uuid="9367f04e-fe08-42b6-8137-9b055abd9725"/>
+				<graphicElement>
+					<pen lineWidth="3.0" lineStyle="Double"/>
+				</graphicElement>
+			</ellipse>
+			<line>
+				<reportElement x="111" y="30" width="90" height="37" uuid="da17b4c5-4c4f-44a8-9ed6-3addae76fbc7"/>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#04D639"/>
+				</graphicElement>
+			</line>
+			<rectangle radius="8">
+				<reportElement x="111" y="100" width="100" height="50" uuid="77c9592b-2b9b-4ee1-bb28-b693a02c9b18"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="111" y="150" width="100" height="30" uuid="67489645-82e4-4a53-9552-91c2aa560b89"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Rounded corners]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="33" width="100" height="1" uuid="99d42d77-2ab1-442c-bb2e-dbb477761e82"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="210" y="30" width="100" height="37" uuid="7190ecdd-5ef1-4d28-846a-2a3e2da5f352"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="340" y="30" width="60" height="1" uuid="36fdccd6-9324-4f3e-9e5b-1728aa96f8b6"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="9fddceb0-d707-477c-8d25-b5c665cb1d98"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Lines]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="220" width="100" height="30" uuid="779701f7-9554-431e-830c-2fd512fb4aef"/>
+				<text><![CDATA[Ellipses]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="100" height="30" uuid="a757d59f-0c90-4bb8-9941-b074d656ec3d"/>
+				<text><![CDATA[Rectangles]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement x="0" y="240" width="80" height="50" uuid="3c0a5ca3-f3b5-44c1-96a9-ada98cece9a1"/>
+			</ellipse>
+			<rectangle>
+				<reportElement x="0" y="100" width="100" height="50" uuid="9939753b-2e84-438e-8a30-9ee86719bc84"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="220" y="100" width="100" height="50" uuid="59ccb0cd-853b-42a5-860d-2c3e64ca2171"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="330" y="100" width="110" height="50" uuid="fb95b6ef-6a73-48a5-9ea0-7440244fc4c8"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</rectangle>
+			<circle>
+				<reportElement x="50" y="340" radius="25" uuid="da72f307-18e0-42f3-a213-e2707f76da4c"/>
+			</circle>
+			<staticText>
+				<reportElement x="0" y="310" width="100" height="30" uuid="01d85fb8-1801-40fd-b682-842429f0fa42"/>
+				<text><![CDATA[Circle]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

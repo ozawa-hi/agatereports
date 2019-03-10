@@ -19,11 +19,8 @@ def set_fonts(fonts_list):
     Register specified fonts and font families to report_info.
     :param fonts_list: list of fonts and font families to register
     """
-    # global report_info
-
     # TODO scan jrxml and try to automatically load fonts
 
-    # report_info['available_fonts'] = []
     available_fonts = []
     if fonts_list is not None:
         for font in fonts_list:
@@ -36,7 +33,6 @@ def set_fonts(fonts_list):
                 if type(font_list) is str:
                     try:
                         pdfmetrics.registerFont(TTFont(font_list, font_filename))
-                        # report_info['available_fonts'].append(font_list)
                         available_fonts.append(font_list)
                     except:  # if font files is not found, output error and skip it.
                         print('font not found. font name:' + name + ' file name:' + font_filename)
@@ -48,14 +44,12 @@ def set_fonts(fonts_list):
                             if index is not None:
                                 try:
                                     pdfmetrics.registerFont(TTFont(name, font_filename, subfontIndex=index))
-                                    # report_info['available_fonts'].append(name)
                                     available_fonts.append(name)
                                 except: # if font files is not found, output error and skip it.
                                     print('font not found. font name:' + name + ' file name:' + font_filename)
                             else:
                                 try:
                                     pdfmetrics.registerFont(TTFont(name, font_filename))
-                                    # report_info['available_fonts'].append(name)
                                     available_fonts.append(name)
                                 except: # if font files is not found, output error and skip it.
                                     print('font not found. font name:' + name + ' file name:' + font_filename)
@@ -108,28 +102,25 @@ def format_text(text, attributes):
 
 def process_font(element, attributes):
     """
+    Process jrxml 'font' element.
     Set font attributes.
-    :param element:
-    :param reportElement:
-    :return:
+    :param element: jrxml 'font' element
+    :param attributes: attributes related to the 'element'
     """
-    # return add_attr2attributes(element, attributes, 'font')
     add_attr2attributes(element, attributes, 'font')
 
 
 def process_paragraph(element, attributes):
     """
-    Process paragraph.
-    :param element:
-    :param attributes:
-    :return:
+    Process jrxml 'paragraph' element.
+    :param element: jrxml 'paragraph' element
+    :param attributes: attributes related to the 'element'
     """
-    # return add_attr2attributes(element, attributes)
     add_attr2attributes(element, attributes)
 
 
 """Elements within text element."""
-text_element_list = {
+textElement_dict = {
     'font': process_font,
     'paragraph': process_paragraph
 }
@@ -138,17 +129,17 @@ text_element_list = {
 def process_textElement(report, element, attributes):
     """
     textElement is used to specify alignment of the following text
+    :param report: dictionary holding report information
     :param element:
     :param attributes:
     :return:
     """
-    text_element = element.get('child')
-    if text_element is not None:
-        for tag in text_element:
+    textElement = element.get('child')
+    if textElement is not None:
+        for tag in textElement:
             for key, value in tag.items():
-                if text_element_list[key] is not None:
-                    # attributes = text_element_list[key](value, attributes)
-                    text_element_list[key](value, attributes)
+                if textElement_dict[key] is not None:
+                    textElement_dict[key](value, attributes)
 
     text_settings = element.get('attr')
     if text_settings is not None:
@@ -156,14 +147,16 @@ def process_textElement(report, element, attributes):
             attributes[key] = value
     return attributes
 
+
 def process_text(report, element, attributes):
     """
     Process "text" jrxml element.
+    :param report: dictionary holding report information
     :param element:
     :param attributes:
     """
-    # global report_info
-    draw_text(report, element.get('value',''), attributes)
+    draw_text(report, element.get('value', ''), attributes)
+
 
 static_text_dict = {
     # 'reportElement': process_reportElement,
@@ -173,9 +166,10 @@ static_text_dict = {
 }
 
 
-def process_static_text(report, element, row_data):
+def process_static_text(report, element):
     """
     Process jrxml staticText element.
+    :param report: dictionary holding report information
     :param element:
     :param row_data: a row from data source
     """
@@ -196,16 +190,14 @@ def text_element(element):
     pass
 
 
-def process_textFieldExpression(report, element, attributes, row_data):
+def process_textFieldExpression(report, element, attributes):
     """
     Process jrxml textFieldExpression element.
+    :param report: dictionary holding report information
     :param element:
     :param attributes:
-    :param row_data: a row from data source
     """
-    # global report_info
-
-    data_value = replace_text(report, element.get('value'), row_data, attributes)
+    data_value = replace_text(report, element.get('value'), attributes)
     draw_text(report, data_value, attributes)
 
 
@@ -220,11 +212,12 @@ textField_dict = {
 }
 
 
-def process_textField(report, element, row_data):
+def process_textField(report, element):
     """
     Process textField jrxml element.
+    :param report: dictionary holding report information
     :param element:
-    :param row_data: a row from data source
+    # :param row_data: a row from data source
     """
     text_field = element.get('child')
     if text_field is not None:
@@ -238,8 +231,6 @@ def process_textField(report, element, row_data):
                 if textField_dict[key] is not None:
                     if key == 'textElement':
                         attributes = process_textElement(report, value, attributes)
-                    elif key == 'textFieldExpression':
-                        textField_dict[key](report, value, attributes, row_data)
                     else:   # reportElement, box
                         textField_dict[key](report, value, attributes)
 
@@ -248,17 +239,16 @@ def get_font(report, report_element, base_style):
     """
     Get specified font name.
     Default to base style font (Usually 'helvetica') if the font is not available in the report_info.
+    :param report: dictionary holding report information
     :param report_element: jrxml reportElement element
     :param base_style: report_info base style
     :return: valid font name
     """
-    # global report_info
-
     font_name = report_element.get('fontFontName', base_style.fontName)
     if font_name is not None:
         font_name.strip()
         if font_name not in report['canvas'].getAvailableFonts() and font_name not in report['available_fonts']:
-            print('font "' + font_name + '" not found. Replacing with font "' + base_style.fontName + '"')
+            print('font file "' + font_name + '" not found. Replacing with font "' + base_style.fontName + '"')
             font_name = base_style.fontName
     return font_name
 
@@ -266,10 +256,10 @@ def get_font(report, report_element, base_style):
 def draw_text(report, text, attributes):
     """
     Draw text string on report_info.
+    :param report:
     :param text: text to output to report_info
     :param attributes: attributes (e.g. 'font name', 'font size', 'color') to apply to text
     """
-    # global report_info
     report['canvas'].saveState()
 
     text = format_text(text, attributes)
@@ -278,6 +268,7 @@ def draw_text(report, text, attributes):
     text_alignment = {'Left': TA_LEFT, 'Center': TA_CENTER, 'Right': TA_RIGHT, 'Justified': TA_JUSTIFY}
     base_style = styles['Normal']
     left_indent = attributes.get("leftIndent", base_style.leftIndent)
+    right_indent = attributes.get("rightIndent", base_style.leftIndent)
     font_name = get_font(report, attributes, base_style)
 
     font_is_bold = convert2boolean(attributes.get('fontIsBold'))
@@ -307,6 +298,7 @@ def draw_text(report, text, attributes):
                         fontSize=font_size,
                         leading=font_size * 1.2,
                         leftIndent=left_indent,
+                        rightIndent=right_indent,
                         alignment=text_alignment[attributes.get('textAlignment', 'Left')],
                         textColor=text_color
                         )
@@ -336,11 +328,11 @@ def draw_text(report, text, attributes):
 
     report['canvas'].restoreState()
 
+
 def process_text(element, attributes):
     """
     Process "text" jrxml element.
     :param element:
     :param attributes:
     """
-    # global report_info
     draw_text(element.get('value',''), attributes)

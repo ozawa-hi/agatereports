@@ -3,14 +3,14 @@ from PIL import Image
 from agatereports.sample.engine.bands.elements import add_attr2attributes, process_reportElement
 from agatereports.sample.engine.components.line import process_box_element
 
+
 def process_image_expression(report, element, attributes):
     """
     Process jrxml 'image_expression' element.
+    :param report: dictionary holding report information
     :param element: jrxml image_expression element
     :param attributes:
     """
-    # global report_info
-
     image_expression = element.get('value')
     if image_expression is not None:
         image_expression = image_expression.strip('\"')  # strip surrounding quotes
@@ -60,6 +60,7 @@ def process_image_expression(report, element, attributes):
             else:
                 print(err)
 
+
 """
 Possible elements under "image" jrxml element.
 """
@@ -71,11 +72,11 @@ image_dict = {
 }
 
 
-def process_image(report, element, row_data):
+def process_image(report, element):
     """
     Process jrxml 'image' element.
+    :param report: dictionary holding report information
     :param element: jrxml image element to process
-    :param row_data: a row from data source
     """
     # TODO image element may contain $F{} and $V{}. Call replaceText() with row_data
     image_element = element.get('child')

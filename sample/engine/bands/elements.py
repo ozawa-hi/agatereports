@@ -12,8 +12,9 @@ def process_reportElement(report, element):
     attributes = {
         'x': int(text_settings.get('x')) + report['leftMargin'],
         'y': int(text_settings.get('y')),
-        'height': int(text_settings.get('height')),
-        'width': int(text_settings.get('width')),
+        'height': int(text_settings.get('height', 0)),
+        'width': int(text_settings.get('width', 0)),
+        'radius': int(text_settings.get('radius', 0)),
         'forecolor': text_settings.get('forecolor'),
         'backcolor': text_settings.get('backcolor'),
         'mode': text_settings.get('mode')  # 'Opaque': show
@@ -44,7 +45,6 @@ def process_jasperReport_element(report_info, element):
     Set obtained values to global 'report_info' variable. Default values are defined here.
     :param element:
     """
-    # global report_info
     default_page_width, default_page_height = A4    # set default page size to A4
 
     page_settings = element.get('attr')
