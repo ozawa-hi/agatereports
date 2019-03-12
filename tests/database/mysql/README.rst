@@ -23,7 +23,7 @@ If you have not yet setup docker network, execute the following command. Setting
 - to login to mysql:
     mysql -u root -p
 
-After logging in to mysql, execute sql commands to `create users and database tables <_creating_user_and_tables>`_
+After logging in to mysql, execute sql commands to `Creating User and Tables`_
 
 Starting and Stopping Docker MySQL Container
 ------------------------------------------------
@@ -32,8 +32,6 @@ Starting and Stopping Docker MySQL Container
 
 - to start:
     docker start mysql-5.7.24
-
-.. _creating_user_and_tables:
 
 Creating User and Tables
 ------------------------

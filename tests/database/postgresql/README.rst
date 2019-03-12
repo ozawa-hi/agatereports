@@ -19,7 +19,7 @@ If you have not yet setup docker network, execute the following command. Setting
 - to connect:
     docker run --net agatenetwork -it --rm --link postgresql-11.2:postgres postgres psql -h postgres -U postgres
 
-After logging in to PostgreSQL, execute sql commands to create users and database tables.
+After logging in to PostgreSQL, execute sql commands to `Creating User and Tables`_
 
 Starting and Stopping Docker PostgreSQL Container
 ------------------------------------------------------------
