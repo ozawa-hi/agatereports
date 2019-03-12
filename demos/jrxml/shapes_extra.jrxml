@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="shapes extra" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8778e3c3-de49-4933-a811-f67616492838">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="255" splitType="Stretch">
+			<circle>
+				<reportElement x="0" y="20" width="60" height="50" uuid="d758e2c8-c275-4158-ac54-54d23bad5a7d"/>
+			</circle>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="19898072-c8a6-4133-a273-5369a37f2422"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Circle]]></text>
+			</staticText>
+			<circle>
+				<reportElement x="80" y="20" width="60" height="50" uuid="93d1ed2a-a723-4975-9e0b-53c3040ba3fe"/>
+				<graphicElement>
+					<pen lineWidth="4.0" lineColor="#0E4DED"/>
+				</graphicElement>
+			</circle>
+			<circle>
+				<reportElement x="160" y="20" width="60" height="50" uuid="f42bc056-d962-4231-b35b-42c5d82e9847"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</circle>
+			<circle>
+				<reportElement x="240" y="20" width="60" height="50" uuid="ed686eb8-601d-41a2-ade6-02039e60b2de"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</circle>
+			<circle>
+				<reportElement x="320" y="20" width="60" height="50" uuid="50d2b5a7-fbef-4a3f-9957-a3f5fb5c09c1"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</circle>
+			<circle>
+				<reportElement mode="Opaque" x="0" y="90" width="60" height="50" backcolor="#09EB7A" uuid="1661be60-0219-44c9-9729-449ae8ea6dd6"/>
+			</circle>
+			<circle>
+				<reportElement mode="Opaque" x="80" y="90" width="60" height="50" forecolor="#FFFFFF" backcolor="#F00AF0" uuid="93842d98-3e05-403c-b9e7-fe37219726e8"/>
+			</circle>
+		</band>
+	</title>
+</jasperReport>

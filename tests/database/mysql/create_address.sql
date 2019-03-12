@@ -6,6 +6,7 @@ CREATE TABLE `agatereports`.`address` (
   `city` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
 
+INSERT INTO `agatereports`.`address` (`firstname`, `lastname`) VALUES ('Hitoshi', 'Ozawa');
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('Laura', 'Steel', '429 Seventh Av.', 'Dallas');
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('Susanne', 'King', '366 - 20th Ave.', 'Olten');
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('Anne', 'Miller', '20 Upland Pl.', 'Lyon');
@@ -24,7 +25,6 @@ INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`)
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('Bill', 'Clancy', '319 Upland Pl.', 'Seattle');
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('John', 'Fuller', '195 Seventh Av.', 'New York');
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('Laura', 'Ott', '443 Seventh Av.', 'Lyon');
-INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('firstname', 'lastname', 'street', 'city');
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('Sylvia', 'Fuller', '158 - 20th Ave.', 'Paris');
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('Susanne', 'Heiniger', '86 - 20th Ave.', 'Dallas');
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('Janet', 'Schneider', '309 - 20th Ave.', 'Oslo');
@@ -57,3 +57,4 @@ INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`)
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('Janet', 'Fuller', '445 Upland Pl.', 'Dallas');
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('Robert', 'White', '549 Seventh Av.', 'San Francisco');
 INSERT INTO `agatereports`.`address` (`firstname`, `lastname`, `street`, `city`) VALUES ('George', 'Fuller', '534 - 20th Ave.', 'Olten');
+

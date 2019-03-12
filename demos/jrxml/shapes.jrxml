@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="shapes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="82aad9f9-aab1-47b6-85b8-8591ba77175e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="shapes" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="82aad9f9-aab1-47b6-85b8-8591ba77175e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
 	<title>
 		<band height="457">
 			<ellipse>
-				<reportElement mode="Transparent" x="120" y="240" width="100" height="50" isPrintInFirstWholeBand="true" forecolor="#0A22F7" backcolor="#F20C2B" uuid="9367f04e-fe08-42b6-8137-9b055abd9725"/>
+				<reportElement mode="Transparent" x="120" y="205" width="100" height="50" isPrintInFirstWholeBand="true" forecolor="#0A22F7" backcolor="#F20C2B" uuid="9367f04e-fe08-42b6-8137-9b055abd9725"/>
 				<graphicElement>
 					<pen lineWidth="3.0" lineStyle="Double"/>
 				</graphicElement>
@@ -51,15 +60,21 @@
 				<text><![CDATA[Lines]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="220" width="100" height="30" uuid="779701f7-9554-431e-830c-2fd512fb4aef"/>
+				<reportElement x="0" y="185" width="100" height="30" uuid="779701f7-9554-431e-830c-2fd512fb4aef"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<text><![CDATA[Ellipses]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="80" width="100" height="30" uuid="a757d59f-0c90-4bb8-9941-b074d656ec3d"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<text><![CDATA[Rectangles]]></text>
 			</staticText>
 			<ellipse>
-				<reportElement x="0" y="240" width="80" height="50" uuid="3c0a5ca3-f3b5-44c1-96a9-ada98cece9a1"/>
+				<reportElement x="0" y="205" width="80" height="50" uuid="3c0a5ca3-f3b5-44c1-96a9-ada98cece9a1"/>
 			</ellipse>
 			<rectangle>
 				<reportElement x="0" y="100" width="100" height="50" uuid="9939753b-2e84-438e-8a30-9ee86719bc84"/>
@@ -76,13 +91,48 @@
 					<pen lineStyle="Double"/>
 				</graphicElement>
 			</rectangle>
-			<circle>
-				<reportElement x="50" y="340" radius="25" uuid="da72f307-18e0-42f3-a213-e2707f76da4c"/>
-			</circle>
-			<staticText>
-				<reportElement x="0" y="310" width="100" height="30" uuid="01d85fb8-1801-40fd-b682-842429f0fa42"/>
-				<text><![CDATA[Circle]]></text>
-			</staticText>
+			<ellipse>
+				<reportElement x="230" y="205" width="100" height="50" uuid="c8a5aef9-c119-4c84-a95a-b0e1f9849a65"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="340" y="205" width="100" height="50" uuid="d3a6778d-6ede-41da-9199-39b5931f214e"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="450" y="205" width="100" height="50" uuid="6c11c6f1-5774-43c0-a611-4a92dc3ba4fd"/>
+				<graphicElement>
+					<pen lineWidth="4.0"/>
+				</graphicElement>
+			</ellipse>
+			<rectangle>
+				<reportElement x="450" y="100" width="100" height="50" uuid="bd2983fd-d17f-4b28-a7fd-4b1fbdae2bec"/>
+				<graphicElement>
+					<pen lineWidth="4.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="430" y="30" width="100" height="30" uuid="d0124f56-5fd5-4060-bd05-3bc070aa0c05"/>
+				<graphicElement>
+					<pen lineWidth="4.0"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement mode="Opaque" x="570" y="100" width="100" height="50" backcolor="#D9CF0D" uuid="aa6709bc-e582-400f-b71c-7c68546d5e16"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="690" y="100" width="100" height="50" forecolor="#FFFFFF" backcolor="#88C298" uuid="a2b02d76-d0d8-4686-9671-e3a2bd48768c"/>
+			</rectangle>
+			<ellipse>
+				<reportElement mode="Opaque" x="570" y="200" width="100" height="50" backcolor="#CC4E4B" uuid="bb3adf5e-9a26-4823-baf2-9e5a9dcc0142"/>
+			</ellipse>
+			<ellipse>
+				<reportElement mode="Opaque" x="690" y="200" width="100" height="50" forecolor="#FFFFFF" backcolor="#9AD7F5" uuid="17e3f077-ee26-48ea-b990-000683181f45"/>
+			</ellipse>
 		</band>
 	</title>
 </jasperReport>

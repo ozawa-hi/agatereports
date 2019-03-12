@@ -55,14 +55,15 @@ def replace_fields(report, expression, attributes):
                                      + ',' + str(date_time.second) + ',' + str(date_time.microsecond) + ','\
                                      + str(date_time.tzinfo) + ')'
                 else:
-                    is_blank_when_null = attributes.get('isBlankWhenNull')
+                    is_blank_when_null = convert2boolean(attributes.get('isBlankWhenNull'))
                     value = report['row_data'].get(key, '$F{' + key + '}')
                     if is_blank_when_null and value is None:
                         # data_value = ''
                         return ''
                     else:
                         data_value = '"' + str(report['row_data'].get(key, '$F{' + key + '}')) + '"'
-                expression = expression.replace('$F{' + key + '}', data_value)
+                if key is not None and data_value is not None:
+                    expression = expression.replace('$F{' + key + '}', data_value)
         return expression
         # try:
         #     return expression
@@ -102,7 +103,7 @@ def replace_variables(variables, expression, attributes):
                                  + str(date_time.second) + ',' + str(date_time.microsecond) + ',' + str(
                         date_time.tzinfo) + ')'
             else:
-                is_blank_when_null = attributes.get('isBlankWhenNull')
+                is_blank_when_null = convert2boolean(attributes.get('isBlankWhenNull'))
                 value = var_info.get('value', '$V{' + key + '}')
                 if is_blank_when_null and value is None:
                     # data_value = ''

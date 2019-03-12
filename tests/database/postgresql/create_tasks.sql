@@ -24,3 +24,4 @@ INSERT INTO tasks (series,task,subtask,starttimestamp,endtimestamp,percent) VALU
 INSERT INTO tasks (series,task,subtask,starttimestamp,endtimestamp,percent) VALUES('Actual','task2','subtask2','1998-05-18 06:00:00.000000000','1998-05-19 00:00:00.000000000',0.20);
 INSERT INTO tasks (series,task,subtask,starttimestamp,endtimestamp,percent) VALUES('Actual','task2','subtask3','1998-05-11 00:00:00.000000000','1998-05-15 00:00:00.000000000',0.45);
 INSERT INTO tasks (series,task,subtask,starttimestamp,endtimestamp,percent) VALUES('Actual','task3','subtask1','1998-05-10 00:00:00.000000000','1998-05-11 00:00:00.000000000',0.95);
+

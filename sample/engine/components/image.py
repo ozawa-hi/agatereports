@@ -4,6 +4,24 @@ from agatereports.sample.engine.bands.elements import add_attr2attributes, proce
 from agatereports.sample.engine.components.line import process_box_element
 
 
+def align_image(report, attributes, image):
+    image_width, image_height = image.size
+    x = attributes['x']
+    if attributes.get('hAlign') == 'Right':
+        if attributes['width'] > image_width:
+            x += (attributes['width'] - image_width)
+    elif attributes.get('hAlign') == 'Center':
+        if attributes['width'] > image_width:
+            x += (attributes['width'] - image_width) / 2
+    y = report['cur_y'] - attributes['y'] - image_height
+    if attributes.get('vAlign') == 'Bottom':
+        if attributes['height'] > image_height:
+            y -= (attributes['height'] - image_height)
+    elif attributes.get('vAlign') == 'Middle':
+        if attributes['height'] > image_height:
+            y -= (attributes['height'] - image_height) / 2
+    return [x, y]
+
 def process_image_expression(report, element, attributes):
     """
     Process jrxml 'image_expression' element.
@@ -15,6 +33,8 @@ def process_image_expression(report, element, attributes):
     if image_expression is not None:
         image_expression = image_expression.strip('\"')  # strip surrounding quotes
 
+        report['canvas'].saveState()
+
         # image from url
         # logo = ImageReader('https://www.google.com/images/srpr/logo11w.png')
         # report_info.drawImage(logo, 10, 10, mask='auto')
@@ -25,24 +45,26 @@ def process_image_expression(report, element, attributes):
 
             # drawInlineImage(image, x, y, width=None, height=None, mask=None)
             if attributes.get('scaleImage') == 'Clip':
-                im_crop = image.crop((0,0, attributes['width'], attributes['height']))
-                report['canvas'].drawInlineImage(im_crop, attributes['x'],
-                                                    report['cur_y'] - attributes['y'] - attributes['height'],
-                                                    width=attributes['width'], height=attributes['height'])
+                image_width, image_height = image.size
+                width = min(image_width, attributes['width'])
+                height = min(image_height, attributes['height'])
+                im_crop = image.crop((0, 0, width, height))
+                x, y = align_image(report, attributes, im_crop)
+                report['canvas'].drawInlineImage(im_crop, x, y, width=width, height=height)
             elif attributes.get('scaleImage') == 'FillFrame':
                 report['canvas'].drawInlineImage(image, attributes['x'],
-                                                    report['cur_y'] - attributes['y'] - attributes['height'],
-                                                    width=attributes['width'], height=attributes['height'])
+                                                 report['cur_y'] - attributes['y'] - attributes['height'],
+                                                 width=attributes['width'], height=attributes['height'])
             elif attributes.get('scaleImage') == 'RealHeight':
                 hsize = int(image_height * (attributes['width'] / float(image_width)))
                 image = image.resize((attributes['width'], hsize), Image.ANTIALIAS)
                 report['canvas'].drawInlineImage(image, attributes['x'],
-                                                    report['cur_y'] - attributes['y'] - hsize)
-            elif attributes.get('scaleImage')  == 'RealSize':
+                                                 report['cur_y'] - attributes['y'] - hsize)
+            elif attributes.get('scaleImage') == 'RealSize':
                 hsize = int(image_height * (attributes['width'] / float(image_width)))
                 image = image.resize((attributes['width'], hsize), Image.ANTIALIAS)
                 report['canvas'].drawInlineImage(image, attributes['x'],
-                                                    report['cur_y'] - attributes['y'] - hsize)
+                                                 report['cur_y'] - attributes['y'] - hsize)
             else:   # reportElement.get('scaleImage') == 'RetainShape': RetainShape is the default behavior
                 hsize = int(image_height * (attributes['width'] / float(image_width)))
                 vsize = int(image_width * (attributes['height'] / float(image_height)))
@@ -50,8 +72,10 @@ def process_image_expression(report, element, attributes):
                     image = image.resize((attributes['width'], hsize), Image.ANTIALIAS)
                 elif hsize > vsize:
                     image = image.resize((vsize, attributes['height']), Image.ANTIALIAS)
-                report['canvas'].drawInlineImage(image, attributes['x'],
-                                                    report['cur_y'] - attributes['y'] - attributes['height'])
+
+                x, y = align_image(report, attributes, image)
+                report['canvas'].drawInlineImage(image, x, y)
+
         except FileNotFoundError as err:
             if attributes.get('onErrorType') == 'Blank':
                 pass
@@ -59,6 +83,7 @@ def process_image_expression(report, element, attributes):
                 print('show icon')
             else:
                 print(err)
+        report['canvas'].restoreState()
 
 
 """

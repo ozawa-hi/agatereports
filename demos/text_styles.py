@@ -1,11 +1,17 @@
 from agatereports.sample.engine.basePage import BaseClass
 
-"""
-Samples of different text styles.
-"""
 
-input_filename = '../demos/jrxml/text_styles.jrxml'  # input jrxml filename
-output_filename = '../demos/output/text_styles.pdf'    # output pdf filename
+def text_styles_sample():
+    """
+    Samples of different text styles.
+    """
+    print('running text styles sample')
+    jrxml_filename = './jrxml/text_styles.jrxml'  # input jrxml filename
+    output_filename = './output/text_styles.pdf'    # output pdf filename
 
-pdf_page = BaseClass(jrxml_filename=input_filename, output_filename=output_filename)
-pdf_page.generate_pdf()
+    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename)
+    pdf_page.generate_report()
+
+
+if __name__ == '__main__':
+    text_styles_sample()

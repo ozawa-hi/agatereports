@@ -54,3 +54,4 @@ INSERT INTO `agatereports`.`product` (name, cost) VALUES('Ice Tea Clock',6.2);
 INSERT INTO `agatereports`.`product` (name, cost) VALUES('Ice Tea Iron',17.8);
 INSERT INTO `agatereports`.`product` (name, cost) VALUES('Clock Clock',21.0);
 INSERT INTO `agatereports`.`product` (name, cost) VALUES('Iron Iron',2.2);
+

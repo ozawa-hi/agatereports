@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="image" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc747a14-89fc-4342-8bfc-5bdd04083dc7">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="748" splitType="Stretch">
+			<image scaleImage="Clip">
+				<reportElement x="10" y="20" width="130" height="140" uuid="85377c44-0e01-4385-8f1c-353b710dba72"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/xml_certification.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="170" y="20" width="130" height="138" uuid="3a1b1ae5-4d0a-4c2c-aaae-e2add70c0c43"/>
+				<imageExpression><![CDATA["./data/xml_certification.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="160" y="0" width="170" height="20" uuid="645f263b-7aac-4b7e-ad39-d265eba2cc9a"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Default shape image]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="360" y="20" width="130" height="140" uuid="fbf1f563-af1e-4cf9-8778-a48d8ce70ced"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/xml_certification.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="360" y="0" width="100" height="20" uuid="608b227f-7919-445a-b9c4-4aaccca57731"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Fill frame]]></text>
+			</staticText>
+			<image scaleImage="RealHeight">
+				<reportElement x="10" y="200" width="130" height="140" uuid="a7995c49-3332-44d2-8ba1-dbc6a0219c04"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/xml_certification.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="10" y="180" width="100" height="20" uuid="7d159441-9fea-40ac-9640-5240fa6afd88"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Real height]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="0" width="60" height="18" uuid="c1ed8a08-342b-4036-8bf9-bf9f8471f3cb"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Clip]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="183" width="100" height="20" uuid="22bcfc95-64ca-414e-8eab-6d49bf686d49"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Retain shape]]></text>
+			</staticText>
+			<image scaleImage="RetainShape">
+				<reportElement x="180" y="205" width="130" height="140" uuid="7f5980e5-ee07-4a50-bdda-c1714d1f1c75"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/xml_certification.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="10" y="410" width="50" height="20" uuid="92d38a02-dc2d-4a6d-8f5d-2f9d3661166a"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[jpg]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="410" width="50" height="20" uuid="1ecd1780-40d3-4100-9ae6-6d0472bfd2a8"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[png]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="410" width="50" height="20" uuid="77d0ea67-a1e6-4519-a896-a2683ed9cebf"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[tiff]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="430" width="50" height="50" uuid="0f3a64cd-1efd-4934-a0ff-915d68d7fdbb"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/jpg_sample.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="221" y="410" width="50" height="20" uuid="42b4538b-7a48-4c3f-89cb-3b6a5c6d95ed"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[gif]]></text>
+			</staticText>
+			<image>
+				<reportElement x="80" y="430" width="50" height="50" uuid="ecb7992f-f4dc-4f23-8b01-c8dec30a9fba"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/png_sample.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="150" y="430" width="50" height="50" uuid="31b8dddd-49e2-4472-a082-30fc810b4fba"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/tiff_sample.tiff"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="221" y="430" width="50" height="50" uuid="9744d20c-4e85-43e7-afc6-e2b098bd53ab"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/gif_sample.gif"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="10" y="390" width="251" height="21" uuid="19b8cde1-beb5-4608-8a4f-a4870b498eb8"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Image file formats]]></text>
+			</staticText>
+			<image scaleImage="Clip">
+				<reportElement x="0" y="530" width="80" height="80" uuid="ac41371c-7713-47ba-911b-84b151b66a65"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/dot.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="500" width="80" height="30" uuid="18b51210-2afa-4102-989a-2d583542d201"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Align right]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="500" width="80" height="30" uuid="7b725d03-5818-4b4d-a6a2-45973f29ca7b"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Align center]]></text>
+			</staticText>
+			<image scaleImage="Clip" hAlign="Center">
+				<reportElement x="110" y="530" width="80" height="80" uuid="cf7acb7d-18dd-4314-9034-5645f8893d87"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/dot.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="215" y="499" width="80" height="30" uuid="ca0eceaa-59ec-4f3b-a851-a8b25d2048a0"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Align right]]></text>
+			</staticText>
+			<image scaleImage="Clip" hAlign="Right">
+				<reportElement x="215" y="529" width="80" height="80" uuid="286a6e0f-920a-40ba-a71d-dffff5c576ad"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/dot.png"]]></imageExpression>
+			</image>
+			<image scaleImage="Clip">
+				<reportElement x="0" y="660" width="80" height="80" uuid="47f7b691-fb28-45cc-99bd-aa7f47d6a7c1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/dot.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="630" width="80" height="30" uuid="584b6654-eee4-48ad-a7ac-8a4aab7c043d"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Align top]]></text>
+			</staticText>
+			<image scaleImage="Clip" vAlign="Middle">
+				<reportElement x="112" y="660" width="80" height="80" uuid="f86f59f2-cf0f-46d3-bdf1-e6b023c616d3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/dot.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="112" y="630" width="98" height="30" uuid="09461c8a-593f-4051-ac1f-bb71d4a5c4c1"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Align middle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="631" width="98" height="30" uuid="a702f977-4ac7-4d12-ad36-198fc6e96ffd"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Align bottom]]></text>
+			</staticText>
+			<image scaleImage="Clip" vAlign="Bottom">
+				<reportElement x="217" y="661" width="80" height="80" uuid="4ed69db7-17d2-4af5-a1e2-dd85ec154559"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/dot.png"]]></imageExpression>
+			</image>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="320" y="660" width="80" height="80" uuid="e30da60b-a489-4549-89cc-0e89cc8d7574"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/dot.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="320" y="630" width="98" height="30" uuid="63a3a640-c220-4619-9428-0089b4622ccc"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Align center/middle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="183" width="204" height="20" uuid="384779b2-5442-4fc4-9b01-06b5fd45472e"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Retain shape (align center)]]></text>
+			</staticText>
+			<image scaleImage="RetainShape" hAlign="Center">
+				<reportElement x="340" y="205" width="204" height="140" uuid="35157f88-96ed-4f2e-b95e-f34f874b5a2e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["./data/xml_certification.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

@@ -3,48 +3,15 @@ try:
 except ImportError:
     import xml.etree.ElementTree as xml
 
-# import datetime
-# import re
-
-from reportlab.pdfgen import canvas
-# from reportlab.lib.pagesizes import A4
-#from reportlab.lib.pagesizes import landscape
-# from reportlab.platypus import Paragraph, Table, TableStyle, KeepInFrame
-# from reportlab.lib import colors
-
-# from reportlab.lib.styles import getSampleStyleSheet
-# from reportlab.lib.styles import ParagraphStyle
-# from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT, TA_JUSTIFY
-# from PIL import Image
-
-# from reportlab.graphics.barcode import code39, code128, code93
-# from reportlab.graphics.barcode import eanbc, qr, usps, usps4s, common
-# from reportlab.graphics.shapes import Drawing
-# from reportlab.graphics import renderPDF
-
-# from reportlab.pdfbase import pdfmetrics
-# from reportlab.pdfbase.ttfonts import TTFont
-# from reportlab.pdfbase.cidfonts import UnicodeCIDFont
-# from reportlab.lib.fonts import addMapping
-# from reportlab import rl_config
-
-from agatereports.sample.engine.jrxml2json import parse_jrxml
-# from agatereports.jrxml.constants import constants
+from agatereports.sample.adapters.CSVAdapter import CSVAdapter
 from agatereports.sample.adapters.MysqlAdapter import MysqlAdapter
 from agatereports.sample.adapters.PostgresqlAdapter import PostgresqlAdapter
-# import psycopg2
-# from psycopg2.extras import DictCursor
-from agatereports.sample.adapters.CSVAdapter import CSVAdapter
-import collections
-
-from agatereports.sample.engine.commonutilities import replace_text, add_attr2attributes
-
-from agatereports.sample.exports.pdf import create_canvas, write_to_file
-from agatereports.sample.engine.components.text import set_fonts
-from agatereports.sample.engine.bands.bands import calc_column_footer_band_height, calc_page_footer_band_height
+from agatereports.sample.engine.bands.bands import calc_column_footer_band_height, calc_page_footer_band_height,\
+    process_bands
 from agatereports.sample.engine.bands.elements import process_jasperReport_element
-
-from agatereports.sample.engine.bands.bands import process_bands
+from agatereports.sample.engine.components.text import set_fonts
+from agatereports.sample.engine.jrxml2json import parse_jrxml
+from agatereports.sample.exports.pdf import create_canvas
 
 try:
     from agatereports.java import java_formatter

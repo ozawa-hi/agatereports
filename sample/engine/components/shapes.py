@@ -101,7 +101,7 @@ def draw_ellipse(report, attributes, line_style, line_width, fore_color, backgro
         report['canvas'].setStrokeColor(colors.HexColor(fore_color))
     if background_color is not None:
         report['canvas'].setFillColor(colors.HexColor(background_color))
-    # ellipse(cs, cy, rx, ry, stroke=1, fill=0)
+    # ellipse(cx, cy, rx, ry, stroke=1, fill=0)
     report['canvas'].ellipse(attributes['x'],
                                   report['cur_y'] - attributes['y'],
                                   attributes['x'] + attributes['width'],
@@ -168,10 +168,11 @@ def draw_circle(report, attributes, line_style, line_width, fore_color, backgrou
         report['canvas'].setStrokeColor(colors.HexColor(fore_color))
     if background_color is not None:
         report['canvas'].setFillColor(colors.HexColor(background_color))
-    # ellipse(cs, cy, rx, ry, stroke=1, fill=0)
-    report['canvas'].circle(attributes['x'],
-                                  report['cur_y'] - attributes['y'],
-                                  attributes['radius'],
+    # circle(cx, cy, r, stroke=1, fill=0)
+    radius = min(attributes['width'], attributes['height'])/2
+    report['canvas'].circle(attributes['x']+radius,
+                                  report['cur_y'] - attributes['y'] - radius,
+                                  radius,
                                   fill=fill)
     report['canvas'].restoreState()
 

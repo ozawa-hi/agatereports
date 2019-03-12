@@ -1,12 +1,12 @@
-Some of the data from database table.
-These tables can be created by executing the following sql scripts under the 'database' directory.
-1. create_schema.sql # create database schema.
-2. create_user.sql   # create test user 'python' with all privileges to database 'agateReports'.
-3. create database tables:
-    create_address.sql
-    create_document.sql
-    create_orders.sql
-    create_product.sql
-    create_tasks.sql
+Some tests and demos use datasource from database table.
+
+Some tests and demo scripts require databases. Steps on setting up a database is available in README.rst of each database directory.
+
+================================ ================================================
+Database name                     Site
+================================ ================================================
+`MySQL <mysql/README.rst>`_         https://dev.mysql.com/downloads/
+`PostgreSQL <postgresql.rst>`_      https://www.postgresql.org/download/
+================================ ================================================
 
 END

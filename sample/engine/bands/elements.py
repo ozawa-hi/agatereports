@@ -14,7 +14,6 @@ def process_reportElement(report, element):
         'y': int(text_settings.get('y')),
         'height': int(text_settings.get('height', 0)),
         'width': int(text_settings.get('width', 0)),
-        'radius': int(text_settings.get('radius', 0)),
         'forecolor': text_settings.get('forecolor'),
         'backcolor': text_settings.get('backcolor'),
         'mode': text_settings.get('mode')  # 'Opaque': show

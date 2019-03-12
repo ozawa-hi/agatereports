@@ -63,12 +63,12 @@ for filename in filenames:
     ]
 
     # MySQL datasource
-    config = {'host': 'localhost', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
+    config = {'host': '172.18.0.2', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
     data_source = MysqlAdapter(**config)
 
     # Postgresql datasource
-    # config = "host='172.17.0.2' port='5432' dbname='agatereports' user='python' password='python'"
+    # config = "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"
     # data_source = PostgresqlAdapter(config)
 
     pdf_page = BaseClass(input_filename, output_filename, data_source, fonts)
-    pdf_page.generate_pdf()
+    pdf_page.generate_report()

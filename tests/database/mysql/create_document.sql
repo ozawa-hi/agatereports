@@ -54,3 +54,4 @@ INSERT INTO `agatereports`.`document` VALUES(46,24,5827.2);
 INSERT INTO `agatereports`.`document` VALUES(47,45,2320.8);
 INSERT INTO `agatereports`.`document` VALUES(48,22,3494.7);
 INSERT INTO `agatereports`.`document` VALUES(49,32,4944.3);
+

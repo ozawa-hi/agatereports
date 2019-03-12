@@ -62,7 +62,7 @@ class MysqlAdapter:
 
 
 if __name__ == '__main__':
-    config = {'host': 'localhost', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
+    config = {'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
     sql = 'SELECT * FROM orders'
 
     adapter = MysqlAdapter(**config)

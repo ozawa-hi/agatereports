@@ -302,8 +302,10 @@ def draw_text(report, text, attributes):
                         alignment=text_alignment[attributes.get('textAlignment', 'Left')],
                         textColor=text_color
                         )
-
-    story = [Paragraph(str(text), ps)]
+    # text = "<br/>".join(str(text).split('\n'))   # replace '\n' with a <br/> to cause newline
+    text = str(text).replace('\n', '<br/>')
+    # story = [Paragraph(str(text), ps)]
+    story = [Paragraph(text, ps)]
     story_in_frame = KeepInFrame(attributes['width'], attributes['height'], story, mode='shrink')   # 'truncate, overflow, shrink
 
     data = [[story_in_frame]]

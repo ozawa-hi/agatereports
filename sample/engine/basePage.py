@@ -12,7 +12,7 @@ class BaseClass:
         self.fonts = fonts
         self.report_type = report_type
 
-    def generate_pdf(self):
+    def generate_report(self):
         reportGenerator.generate_report(jrxml_filename=self.jrxml_filename, output_filename=self.output_filename,
                                         data_source=self.data_source, fonts=self.fonts, report_type=self.report_type)
 
