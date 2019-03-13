@@ -42,9 +42,25 @@ Pillow
 MySQL Connector/Python
 psycopg2
 
+
+Installation
+----------------
+AgateReports requires Pillow. If Pillow is not already installed, please install it with the following command.
+::
+
+    pip install Pillow
+
+AgateReports can be installed by the following command:
+::
+
+    pip install agatereports
+
+
 Getting Started
 ----------------
-- Installation - AgateReports is planned to be uploaded to PyPI. Steps will be added after successful upload.
-- Usage - `demos directory <./demos/README.rst>`_ contains samples on how to use AgateReports.
+Please refer to the following github project for full documentation.
+https://github.com/ozawa-hi/agatereports
+
+Usage - `demos directory <./demos/README.rst>`_ contains samples on how to use AgateReports.
 
 END
