@@ -8,6 +8,12 @@ Introduction
 AgateReports is a pure Python tool to generate reports without extensive coding.
 It currently relies on Jaspersoft Studio `<https://sourceforge.net/projects/jasperstudio/>`_ to graphically position reporting elements on a report layout.
 
+.. image:: ./docs/img/overview.png
+    :width: 832px
+    :align: center
+    :height: 292px
+    :alt: overview
+
 This package aims to be a solution to following users:
 
 - Python developers who want to create a report using GUI tool.
