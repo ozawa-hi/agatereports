@@ -1,5 +1,8 @@
-from agatereports.sample.adapters.MysqlAdapter import MysqlAdapter
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.adapters import MysqlAdapter
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def dates_sample():
@@ -14,7 +17,7 @@ def dates_sample():
     For example, today's date is retrieved using 'datetime.datetime.now()' instead of 'new java.util.Date()'
     Date/time format is specified using Python strftime formats. e.g. %Y-%m-%d
      """
-    print('running dates sample')
+    logger.info('running dates sample')
     jrxml_filename = '../demos/jrxml/dates.jrxml'  # input jrxml filename
     output_filename = '../demos/output/dates.pdf'  # output pdf filename
 
@@ -22,7 +25,7 @@ def dates_sample():
     config = {'host': 'localhost', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
     data_source = MysqlAdapter(**config)
 
-    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
     pdf_page.generate_report()
 
 

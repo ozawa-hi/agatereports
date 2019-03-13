@@ -3,7 +3,7 @@ from reportlab.graphics.barcode import eanbc, qr, usps, usps4s, common
 from reportlab.graphics.shapes import Drawing
 from reportlab.graphics import renderPDF
 
-from agatereports.sample.engine.commonutilities import replace_text, add_attr2attributes
+from agatereports.engine.commonutilities import replace_text, add_attr2attributes
 
 
 def draw_basic_barcode(report, barcode_type, element, attributes):

@@ -1,26 +1,51 @@
+from agatereports.adapters import MysqlAdapter
+from agatereports.engine.bands.bands import calc_column_footer_band_height, calc_page_footer_band_height,\
+    process_bands
+from agatereports.engine.bands.elements import process_jasperReport_element
+from agatereports.engine.components.text import set_fonts
+from agatereports.engine.jrxml2json import parse_jrxml
+from agatereports.exports.pdf import create_canvas
+
 try:
     import xml.etree.cElementTree as xml
 except ImportError:
     import xml.etree.ElementTree as xml
 
-from agatereports.sample.adapters.CSVAdapter import CSVAdapter
-from agatereports.sample.adapters.MysqlAdapter import MysqlAdapter
-from agatereports.sample.adapters.PostgresqlAdapter import PostgresqlAdapter
-from agatereports.sample.engine.bands.bands import calc_column_footer_band_height, calc_page_footer_band_height,\
-    process_bands
-from agatereports.sample.engine.bands.elements import process_jasperReport_element
-from agatereports.sample.engine.components.text import set_fonts
-from agatereports.sample.engine.jrxml2json import parse_jrxml
-from agatereports.sample.exports.pdf import create_canvas
+import os
+import json
+import logging
+import logging.config
+
+logger = logging.getLogger(__name__)
 
 try:
     from agatereports.java import java_formatter
     java = True
-except:
+except Exception:
     java = False
 
 # TODO need to break this file into smaller files.
 # TODO need performance improvement.
+
+
+def setup_logging(
+    default_path='./logging.json',
+    default_level=logging.INFO,
+    env_key='LOG_CFG'
+):
+    """Setup logging configuration
+
+    """
+    path = default_path
+    value = os.getenv(env_key, None)
+    if value:
+        path = value
+    if os.path.exists(path):
+        with open(path, 'rt') as f:
+            log_config = json.load(f)
+        logging.config.dictConfig(log_config)
+    else:
+        logging.basicConfig(level=default_level)
 
 
 def generate_report(jrxml_filename, output_filename, data_source, fonts=None, report_type='pdf'):
@@ -31,8 +56,9 @@ def generate_report(jrxml_filename, output_filename, data_source, fonts=None, re
     :param data_source:
     :parm fonts:
     """
+    setup_logging()
     if input is None or jrxml_filename is None:
-        print('please specify jrxml filename and output filename to generate.')
+        logger.error('No report generated. Please specify jrxml filename and output filename to generate.')
     else:
         report_info = dict(properties={},
                            variables={  # initial system variables
@@ -50,8 +76,8 @@ def generate_report(jrxml_filename, output_filename, data_source, fonts=None, re
 
         report_info['main_datasource'] = data_source
 
-        json = parse_jrxml(jrxml_filename)
-        jasper_report_element = json.get('jasperReport')
+        jrxml_list = parse_jrxml(jrxml_filename)
+        jasper_report_element = jrxml_list.get('jasperReport')
         process_jasperReport_element(report_info, jasper_report_element)
 
         # create report_info
@@ -77,7 +103,8 @@ def generate_report(jrxml_filename, output_filename, data_source, fonts=None, re
 if __name__ == '__main__':
     filename = 'barcodes'
 
-    input_filename = '../../tests/jrxml/' + filename + '.jrxml'  # input jrxml filename
+    input_filename = '/home/hozawa/JaspersoftWorkspace/AgateReports/' + filename + '.jrxml'  # input jrxml filename
+    # input_filename = '../../tests/jrxml/' + filename + '.jrxml'  # input jrxml filename
     output_filename = '../../tests/output/pdf_' + filename + '.pdf'
 
     # MySQL datasource

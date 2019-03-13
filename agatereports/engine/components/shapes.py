@@ -1,8 +1,8 @@
 from reportlab.lib import colors
 
-from agatereports.sample.engine.commonutilities import add_attr2attributes
-from agatereports.sample.engine.components.line import line_style_dict
-from agatereports.sample.engine.bands.elements import process_graphicElement, process_reportElement
+from agatereports.engine.commonutilities import add_attr2attributes
+from agatereports.engine.components.line import line_style_dict
+from agatereports.engine.bands.elements import process_graphicElement, process_reportElement
 
 
 def draw_rectangle(report, attributes, line_style, line_width, fore_color, background_color, fill):

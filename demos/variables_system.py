@@ -1,5 +1,8 @@
-from agatereports.sample.adapters.MysqlAdapter import MysqlAdapter
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.adapters import MysqlAdapter
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def variables_system_sample():
@@ -15,7 +18,7 @@ def variables_system_sample():
     'REPORT_COUNT': current row number in the data source
     'PAGE_COUNT': current row number of the data source in a page
      """
-    print('running variables system sample')
+    logger.info('running variables system sample')
     jrxml_filename = '../demos/jrxml/variables_system.jrxml'  # input jrxml filename
     output_filename = '../demos/output/variables_system.pdf'  # output pdf filename
 
@@ -23,7 +26,7 @@ def variables_system_sample():
     config = {'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
     data_source = MysqlAdapter(**config)
 
-    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
     pdf_page.generate_report()
 
 

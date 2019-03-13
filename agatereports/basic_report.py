@@ -1,7 +1,7 @@
-from agatereports.sample.engine import reportGenerator
+from agatereports.engine import reportGenerator
 
 
-class BaseClass:
+class BasicReport:
     """"
     Base wrapper class to generate reports.
     """

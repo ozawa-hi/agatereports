@@ -1,15 +1,18 @@
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def barcode_sample():
     """
     Barcode generation sample.
     """
-    print('running barcode sample')
+    logger.info('running barcode sample')
     jrxml_filename = './jrxml/barcode.jrxml'  # input jrxml filename
     output_filename = './output/barcode.pdf'    # output pdf filename
 
-    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename)
     pdf_page.generate_report()
 
 

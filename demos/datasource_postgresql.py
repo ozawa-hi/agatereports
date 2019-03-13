@@ -1,5 +1,8 @@
-from agatereports.sample.adapters.PostgresqlAdapter import PostgresqlAdapter
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.adapters.PostgresqlAdapter import PostgresqlAdapter
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def datasource_postgresql_sample():
@@ -10,7 +13,7 @@ def datasource_postgresql_sample():
 
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
-    print('running datasource postgresql sample')
+    logger.info('running datasource postgresql sample')
     jrxml_filename = '../demos/jrxml/datasource_postgresql.jrxml'  # input jrxml filename
     output_filename = '../demos/output/datasource_postgresql.pdf'  # output pdf filename
 
@@ -18,7 +21,7 @@ def datasource_postgresql_sample():
     config = "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"
     data_source = PostgresqlAdapter(config)
 
-    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
     pdf_page.generate_report()
 
 

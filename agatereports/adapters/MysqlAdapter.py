@@ -1,27 +1,32 @@
 import mysql.connector
 from mysql.connector import errorcode
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 class MysqlAdapter:
     """
     MySQL datasource adapter.
     """
     # TODO support connection pooling
+    # TODO implement bulk read
 
-    def __init__(self, **config):
-        self.config = config
+    def __init__(self, **config_list):
+        self.config = config_list
         try:
-            self.conn = mysql.connector.connect(**config)
+            self.conn = mysql.connector.connect(**config_list)
             self.cur = self.conn.cursor()
         except mysql.connector.Error as err:
             self.close_cursor()
             self.conn = None
             self.cur = None
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Something is wrong with your user name or password")
+                logger.error('Unable to access MySQL database with provided user/password.')
             elif err.errno == errorcode.ER_BAD_DB_ERROR:
-                print("Database does not exist")
+                logger.error('Specified MySQL database does not exist')
             else:
-                print(err)
+                logger.error('Failed to connect to MySQL database', exc_info=True)
 
     def get_cursor(self):
         """
@@ -57,16 +62,18 @@ class MysqlAdapter:
         try:
             self.cur.close()
             self.conn.close()
-        except:
+        except Exception:
             pass
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+
     config = {'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
     sql = 'SELECT * FROM orders'
 
     adapter = MysqlAdapter(**config)
     rows = adapter.execute_query(sql)
-    print(rows)
+    logger.info(rows)
     adapter.close_cursor()
 

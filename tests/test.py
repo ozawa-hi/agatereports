@@ -1,6 +1,8 @@
-from agatereports.sample.adapters.MysqlAdapter import MysqlAdapter
-from agatereports.sample.adapters.PostgresqlAdapter import PostgresqlAdapter
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.adapters import MysqlAdapter
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 """
 Test pdf generation.
@@ -10,7 +12,7 @@ filenames = ['empty_report', 'no_data', 'text_fields', 'text_fields_lastPageFoot
              'when_no_data_No_data_section', 'when_no_data_No_pages', 'when_no_data_Null', 'fonts', 'variables_system']
 
 for filename in filenames:
-    print('currently processing: ' + filename + '.jrxml')
+    logger.info('currently processing: ' + filename + '.jrxml')
     input_filename = '../tests/jrxml/' + filename + '.jrxml'  # input jrxml filename
     output_filename = '../tests/output/pdf_' + filename + '.pdf'    # output pdf filename
     fonts = [
@@ -70,5 +72,5 @@ for filename in filenames:
     # config = "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"
     # data_source = PostgresqlAdapter(config)
 
-    pdf_page = BaseClass(input_filename, output_filename, data_source, fonts)
+    pdf_page = BasicReport(input_filename, output_filename, data_source, fonts)
     pdf_page.generate_report()

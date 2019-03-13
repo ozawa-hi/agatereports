@@ -1,12 +1,17 @@
 import psycopg2
 from psycopg2.extras import DictCursor
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 class PostgresqlAdapter:
     """
     Postgresql datasource adapter.
     """
 
     # TODO support connection pooling
+    # TODO implement bulk read
 
     def __init__(self, dsn):
         self.config = dsn
@@ -19,12 +24,12 @@ class PostgresqlAdapter:
             self.close_cursor()
             self.conn = None
             self.cur = None
-            print(err)
+            logger.error('Operational error occurred connecting to Postgresql database.', exc_info=True)
         except psycopg2.Error as err:
             self.close_cursor()
             self.conn = None
             self.cur = None
-            print('unable to connect to Postgresql database. internal database connection error.', err)
+            logger.error('unable to connect to Postgresql database. internal database connection error.', exc_info=True)
 
     def get_cursor(self):
         """
@@ -48,10 +53,10 @@ class PostgresqlAdapter:
                 field_names = [i[0] for i in self.cur.description]
                 return field_names
             except psycopg2.ProgrammingError as err:
-                print('Specified user does not have privilege to query the database table.', err)
+                logging.error('Specified user does not have privilege to query the database table.', exc_info=True)
                 return None
             except psycopg2.Error as err:
-                print('Unable to query the database table.', err)
+                logging.error('Unable to query the database table.', exc_info=True)
 
     def fetch_row(self):
         if self.cur is None:
@@ -76,12 +81,14 @@ class PostgresqlAdapter:
 
 
 if __name__ == '__main__':
-    config = "host='172.17.0.2' port='5432' dbname='agatereports' user='python' password='python'"
+    logging.basicConfig(level=logging.INFO)
+
+    config = "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"
     sql = 'SELECT * FROM orders'
 
     adapter = PostgresqlAdapter(config)
     rows = adapter.execute_query(sql)
 
-    print(rows)
+    logging.info(rows)
     adapter.close_cursor()
 

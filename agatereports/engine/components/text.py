@@ -9,9 +9,12 @@ from reportlab.platypus import Paragraph, Table, TableStyle, KeepInFrame
 from reportlab.lib import colors
 
 
-from agatereports.sample.engine.commonutilities import add_attr2attributes, convert2boolean, replace_text
-from agatereports.sample.engine.bands.elements import process_reportElement
-from agatereports.sample.engine.components.line import process_box_element
+from agatereports.engine.commonutilities import add_attr2attributes, convert2boolean, replace_text
+from agatereports.engine.bands.elements import process_reportElement
+from agatereports.engine.components.line import process_box_element
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def set_fonts(fonts_list):
@@ -35,7 +38,7 @@ def set_fonts(fonts_list):
                         pdfmetrics.registerFont(TTFont(font_list, font_filename))
                         available_fonts.append(font_list)
                     except:  # if font files is not found, output error and skip it.
-                        print('font not found. font name:' + name + ' file name:' + font_filename)
+                        logger.error('font not found. font name:' + name + ' file name:' + font_filename)
                 elif type(font_list) is list:
                     for font_reg in font_list:
                         index = font_reg.get('index')
@@ -46,13 +49,13 @@ def set_fonts(fonts_list):
                                     pdfmetrics.registerFont(TTFont(name, font_filename, subfontIndex=index))
                                     available_fonts.append(name)
                                 except: # if font files is not found, output error and skip it.
-                                    print('font not found. font name:' + name + ' file name:' + font_filename)
+                                    logger.error('font not found. font name:' + name + ' file name:' + font_filename)
                             else:
                                 try:
                                     pdfmetrics.registerFont(TTFont(name, font_filename))
                                     available_fonts.append(name)
                                 except: # if font files is not found, output error and skip it.
-                                    print('font not found. font name:' + name + ' file name:' + font_filename)
+                                    logger.error('font not found. font name:' + name + ' file name:' + font_filename)
             font_family = font.get('font-family')
             if font_family is not None:
                 if font_family.get('name') is not None and font_family.get('normal') is not None\
@@ -248,7 +251,7 @@ def get_font(report, report_element, base_style):
     if font_name is not None:
         font_name.strip()
         if font_name not in report['canvas'].getAvailableFonts() and font_name not in report['available_fonts']:
-            print('font file "' + font_name + '" not found. Replacing with font "' + base_style.fontName + '"')
+            logging.warn('font file "' + font_name + '" not found. Replacing with font "' + base_style.fontName + '"')
             font_name = base_style.fontName
     return font_name
 

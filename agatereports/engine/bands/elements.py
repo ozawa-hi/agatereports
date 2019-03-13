@@ -1,10 +1,11 @@
 from reportlab.lib.pagesizes import A4
-from agatereports.sample.engine.commonutilities import add_attr2attributes
+from agatereports.engine.commonutilities import add_attr2attributes
 
 
 def process_reportElement(report, element):
     """
     Set attributes of "reportElement" to a dictionary.
+    :param report:
     :param element:
     :return:
     """

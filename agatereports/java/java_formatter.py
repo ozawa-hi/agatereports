@@ -17,8 +17,6 @@ def format_date(date, output_pattern, input_pattern='yyyy-MM-dd HH:mm:ss.n'):
     date_formatter = DateTimeFormatter.ofPattern(output_pattern)
 
     return local_date.format(date_formatter)
-    # formatted_date = local_date.format(date_formatter)
-    # print(formatted_date)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,5 @@
-from agatereports.sample.engine.components.barcode import process_barbecue, process_barcode4j
-from agatereports.sample.engine.bands.elements import process_reportElement
+from agatereports.engine.components.barcode import process_barbecue, process_barcode4j
+from agatereports.engine.bands.elements import process_reportElement
 
 """
 Supported components. Barcode4j barcodes are also defined here.

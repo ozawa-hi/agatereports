@@ -8,6 +8,10 @@ except ImportError:
 
 import json
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 def strip_namespace(element):
     """
     strip namespace from the element name.
@@ -59,24 +63,24 @@ def parse_jrxml(filename):
             band_dict[band_name] = list([{band_name: dict(get_child_dict(band))}])
         else:
             band_element.extend(list([{band_name: dict(get_child_dict(band))}]))
-        #     print(band_element)
+        #     logger.debug(band_element)
             # band_dict.extend(list([{band_name: dict(get_child_dict(band))}]))
 
     return dict([(strip_namespace(root), {'attr': root.attrib, 'child': band_dict})])
 
 
-def write2file(element, filename):
+def write2file(element, json_filename):
     """
     Write json to a file
     :param element: json element to write to a file
-    :param filename: name of the output file
+    :param json_filename: name of the output file
     :return: None
     """
     try:
-        with open(filename,"w") as out_file:
+        with open(json_filename,"w") as out_file:
             out_file.write(str(element))
     except IOError as err:
-        print(err)
+        logger.error(err)
 
 
 if __name__ == '__main__':
@@ -86,7 +90,7 @@ if __name__ == '__main__':
 
     parsed_jrxml = parse_jrxml(input_filename)
     write2file(json.dumps(parsed_jrxml), output_filename)
-    # print(json.dumps(parsed_jrxml, indent=2))
+    # logger.debug(json.dumps(parsed_jrxml, indent=2))
 
 
 

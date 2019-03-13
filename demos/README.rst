@@ -23,7 +23,7 @@ Directory                    Content
 | https://community.jaspersoft.com/documentation/tibco-jaspersoft-studio-user-guide/v71/getting-started-jaspersoft-studio-0
 
 | Demos: More detailed description of each demo is included in the .py file.
-| All sample scripts can be executed by running 'run_all_samples.py' script.
+| All sample scripts can be executed by running `run_all_samples.py <`run_all_samples.py>`_ script.
 
 1. Drawing basic report elements
     * `hello world.py <./hello_world.py>`_   - output a simple script to generate a report with text 'Hello World' |

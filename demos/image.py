@@ -1,15 +1,18 @@
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def image_sample():
     """
     Image sample.
     """
-    print('running image sample')
+    logger.info('running image sample')
     jrxml_filename = './jrxml/image.jrxml'  # input jrxml filename
     output_filename = './output/image.pdf'    # output pdf filename
 
-    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename)
     pdf_page.generate_report()
 
 

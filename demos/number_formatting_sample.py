@@ -1,5 +1,8 @@
-from agatereports.sample.adapters.MysqlAdapter import MysqlAdapter
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.adapters import MysqlAdapter
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def number_formatting_sample():
@@ -15,15 +18,15 @@ def number_formatting_sample():
 
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
-    print('running number formatting sample')
-    jrxml_filename = '../demos/jrxml/number_formatting.jrxml'  # input jrxml filename
-    output_filename = '../demos/output/number_formatting.pdf'  # output pdf filename
+    logger.info('running number formatting sample')
+    jrxml_filename = './jrxml/number_formatting.jrxml'  # input jrxml filename
+    output_filename = './output/number_formatting.pdf'  # output pdf filename
 
     # MySQL datasource
     config = {'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
     data_source = MysqlAdapter(**config)
 
-    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
     pdf_page.generate_report()
 
 

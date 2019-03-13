@@ -1,11 +1,14 @@
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def fonts_sample():
     """
     Font samples.
     """
-    print('running fonts sample')
+    logger.info('running fonts sample')
     font_list = [
         # list of additional directories to search for fonts
         {'font_path': ['../tests/fonts/', '/usr/share/fonts/truetype/msttcorefonts/']},
@@ -70,7 +73,7 @@ def fonts_sample():
     jrxml_filename = './jrxml/fonts.jrxml'  # input jrxml filename
     output_filename = './output/fonts.pdf'    # output pdf filename
 
-    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename, fonts=font_list)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, fonts=font_list)
     pdf_page.generate_report()
 
 

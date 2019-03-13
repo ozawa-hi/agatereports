@@ -1,7 +1,10 @@
 from PIL import Image
 
-from agatereports.sample.engine.bands.elements import add_attr2attributes, process_reportElement
-from agatereports.sample.engine.components.line import process_box_element
+from agatereports.engine.bands.elements import add_attr2attributes, process_reportElement
+from agatereports.engine.components.line import process_box_element
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def align_image(report, attributes, image):
@@ -21,6 +24,7 @@ def align_image(report, attributes, image):
         if attributes['height'] > image_height:
             y -= (attributes['height'] - image_height) / 2
     return [x, y]
+
 
 def process_image_expression(report, element, attributes):
     """
@@ -79,10 +83,10 @@ def process_image_expression(report, element, attributes):
         except FileNotFoundError as err:
             if attributes.get('onErrorType') == 'Blank':
                 pass
-            elif attributes.get('onErrorType') == 'Icon':
-                print('show icon')
+            elif attributes.get('onErrorType') == 'Icon':   # TODO support show icon on error
+                logger.debug('show icon')
             else:
-                print(err)
+                logger.error(err)
         report['canvas'].restoreState()
 
 

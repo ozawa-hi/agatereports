@@ -1,0 +1,3 @@
+from agatereports.adapters.CSVAdapter import CSVAdapter
+from agatereports.adapters.MysqlAdapter import MysqlAdapter
+from agatereports.adapters.PostgresqlAdapter import PostgresqlAdapter

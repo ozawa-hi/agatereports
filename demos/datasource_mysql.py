@@ -1,5 +1,8 @@
-from agatereports.sample.adapters.MysqlAdapter import MysqlAdapter
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.adapters import MysqlAdapter
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def datasource_mysql_sample():
@@ -11,7 +14,7 @@ def datasource_mysql_sample():
 
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
-    print('running datasource mysql sample')
+    logger.info('running datasource mysql sample')
     jrxml_filename = '../demos/jrxml/datasource_mysql.jrxml'  # input jrxml filename
     output_filename = '../demos/output/datasource_mysql.pdf'  # output pdf filename
 
@@ -19,7 +22,7 @@ def datasource_mysql_sample():
     config = {'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
     data_source = MysqlAdapter(**config)
 
-    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
     pdf_page.generate_report()
 
 

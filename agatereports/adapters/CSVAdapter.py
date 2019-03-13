@@ -1,5 +1,8 @@
 import csv
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 class CSVAdapter:
     """
@@ -13,7 +16,7 @@ class CSVAdapter:
         except IOError as err:
             if 'csv_file' in locals():
                 self.csv_file.close()
-            print(err)
+            logger.error('Unable to open specified csv file', exc_info=True)
 
     def get_cursor(self):
         """
@@ -55,10 +58,12 @@ class CSVAdapter:
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+
     input_filename = '../../tests/data/address.csv'
 
     adapter = CSVAdapter(input_filename)
     header = adapter.execute_query('')
-    print(header)
+    logger.info(header)
     adapter.close_cursor()
 

@@ -1,15 +1,17 @@
 import psycopg2
 from psycopg2.extras import DictCursor
 
-from agatereports.sample.engine.bands.elements import add_attr2attributes
+from agatereports.engine.bands.elements import add_attr2attributes
 
-from agatereports.sample.engine.components.components import process_componentElement
-from agatereports.sample.engine.components.image import process_image
-from agatereports.sample.engine.components.line import process_line
-from agatereports.sample.engine.components.shapes import process_rectangle, process_ellipse, process_circle
-from agatereports.sample.engine.components.text import process_static_text, process_textField
-from agatereports.sample.exports.pdf import create_canvas
-from agatereports.sample.exports.pdf import write_to_file
+from agatereports.engine.components.components import process_componentElement
+from agatereports.engine.components.image import process_image
+from agatereports.engine.components.line import process_line
+from agatereports.engine.components.shapes import process_rectangle, process_ellipse, process_circle
+from agatereports.engine.components.text import process_static_text, process_textField
+from agatereports.exports.pdf import create_canvas, write_to_file
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 # check jasperreports.xsd file in jasperreport library source on information about jrxml elements construct.
@@ -96,7 +98,7 @@ def groupExpression(report, element):
     :param element:
     :return:
     """
-    print('groupExpression:', element)
+    logger.debug('groupExpression:', element)
     pass
 
 
@@ -107,7 +109,7 @@ def groupHeader(report, element):
     :param element:
     :return:
     """
-    print('groupHeader:', element)
+    logger.debug('groupHeader:', element)
     pass
 
 def groupFooter(report, element):
@@ -117,7 +119,7 @@ def groupFooter(report, element):
     :param element:
     :return:
     """
-    print('group footer:', element)
+    logger.debug('group footer:', element)
     pass
 
 
@@ -138,7 +140,7 @@ def process_group_band(report, element):
     group_attr = element.get('attr')
     name = group_attr.get('name')
 
-    print(element)
+    logger.debug(element)
     if element.get('child') is not None:
         for tag in element.get('child'):
             for key, value in tag.items():
@@ -332,7 +334,7 @@ def process_band(report, element):
 #                     elif type(row) == psycopg2.extras.DictRow:  # result in dictionary format
 #                         row_data = row
 #                     else:
-#                         print("invalid datasource format.")
+#                         logger.error("invalid datasource format.")
 #                         row_data = None
 #
 #                     process_band(report, title_element.get('band'), row_data)
@@ -374,7 +376,7 @@ def process_detail_band_element(report, element):
                     elif type(row) == psycopg2.extras.DictRow:  # result in dictionary format
                         report['row_data'] = row
                     else:
-                        print("invalid datasource format.")
+                        logging.error("invalid datasource format.")
                         report['row_data'] = None
 
                     process_band(report, title_element.get('band'))

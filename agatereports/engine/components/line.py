@@ -1,7 +1,7 @@
 from reportlab.lib import colors
 
-from agatereports.sample.engine.bands.elements import process_reportElement, process_graphicElement
-from agatereports.sample.engine.commonutilities import add_attr2attributes
+from agatereports.engine.bands.elements import process_reportElement, process_graphicElement
+from agatereports.engine.commonutilities import add_attr2attributes
 
 """
 List of possible line styles.

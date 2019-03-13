@@ -1,5 +1,8 @@
-from agatereports.sample.adapters.MysqlAdapter import MysqlAdapter
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.adapters import MysqlAdapter
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def blank_when_null_sample():
@@ -17,7 +20,7 @@ def blank_when_null_sample():
 
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
-    print('running blank when null sample')
+    logger.info('running blank when null sample')
     jrxml_filename = '../demos/jrxml/blank_when_null.jrxml'  # input jrxml filename
     output_filename = '../demos/output/blank_when_null.pdf'  # output pdf filename
 
@@ -25,7 +28,7 @@ def blank_when_null_sample():
     config = {'host': 'localhost', 'port': '3306','user': 'python', 'password': 'python', 'database': 'agatereports'}
     data_source = MysqlAdapter(**config)
 
-    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
     pdf_page.generate_report()
 
 

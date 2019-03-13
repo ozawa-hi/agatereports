@@ -1,5 +1,8 @@
-from agatereports.sample.adapters.MysqlAdapter import MysqlAdapter
-from agatereports.sample.engine.basePage import BaseClass
+from agatereports.adapters import MysqlAdapter
+from agatereports.basic_report import BasicReport
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def when_no_data_no_pages_sample():
@@ -22,7 +25,7 @@ def when_no_data_no_pages_sample():
 
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
-    print('running when no data no pages sample')
+    logger.info('running when no data no pages sample')
     jrxml_filename = '../demos/jrxml/when_no_data_no_pages.jrxml'  # input jrxml filename
     output_filename = '../demos/output/when_no_data_no_pages.pdf'  # output pdf filename
 
@@ -30,7 +33,7 @@ def when_no_data_no_pages_sample():
     config = {'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
     data_source = MysqlAdapter(**config)
 
-    pdf_page = BaseClass(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
     pdf_page.generate_report()
 
 
