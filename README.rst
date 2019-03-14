@@ -60,7 +60,7 @@ Getting Started
 Please refer to the following github project for full documentation.
 https://github.com/ozawa-hi/agatereports
 
-`demos directory <https://github.com/ozawa-hi/agatereports/tree/master/demos>`_ contains samples of jrxml files and Python scripts on how to use AgateReports.
+`demos directory <https://github.com/ozawa-hi/agatereports/tree/master/demos/README.rst>`_ contains samples of jrxml files and Python scripts on how to use AgateReports.
 
 Usage Sample
 ---------------
