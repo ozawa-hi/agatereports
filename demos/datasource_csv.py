@@ -10,8 +10,8 @@ def datasource_csv_sample():
     CSV data source sample.
      """
     logger.info('running datasource csv sample')
-    jrxml_filename = '../demos/jrxml/datasource_csv.jrxml'  # input jrxml filename
-    output_filename = '../demos/output/datasource_csv.pdf'    # output pdf filename
+    jrxml_filename = './jrxml/datasource_csv.jrxml'  # input jrxml filename
+    output_filename = './output/datasource_csv.pdf'    # output pdf filename
 
     # CSV datasource
     csv_filename = './data/product.csv'

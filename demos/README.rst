@@ -82,8 +82,9 @@ Demo py files mostly consists only of the following steps. These are the basic s
     5. then calling 'generate_report'.
 
 
-e.g.
-::
+Example:
+
+.. code-block:: python
 
     jrxml_filename = '../demos/jrxml/datasource_mysql.jrxml'  # 1. input jrxml filename
     output_filename = '../demos/output/datasource_mysql.pdf'  # 2. output pdf filename

@@ -21,8 +21,8 @@ def blank_when_null_sample():
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
     logger.info('running blank when null sample')
-    jrxml_filename = '../demos/jrxml/blank_when_null.jrxml'  # input jrxml filename
-    output_filename = '../demos/output/blank_when_null.pdf'  # output pdf filename
+    jrxml_filename = './jrxml/blank_when_null.jrxml'  # input jrxml filename
+    output_filename = './output/blank_when_null.pdf'  # output pdf filename
 
     # MySQL datasource
     config = {'host': 'localhost', 'port': '3306','user': 'python', 'password': 'python', 'database': 'agatereports'}

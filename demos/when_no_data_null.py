@@ -26,8 +26,8 @@ def when_no_data_null_sample():
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
     logger.info('running when no data null sample')
-    jrxml_filename = '../demos/jrxml/when_no_data_null.jrxml'  # input jrxml filename
-    output_filename = '../demos/output/when_no_data_null.pdf'  # output pdf filename
+    jrxml_filename = './jrxml/when_no_data_null.jrxml'  # input jrxml filename
+    output_filename = './output/when_no_data_null.pdf'  # output pdf filename
 
     # MySQL datasource
     config = {'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python', 'database': 'agatereports'}

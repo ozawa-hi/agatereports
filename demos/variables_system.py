@@ -19,8 +19,8 @@ def variables_system_sample():
     'PAGE_COUNT': current row number of the data source in a page
      """
     logger.info('running variables system sample')
-    jrxml_filename = '../demos/jrxml/variables_system.jrxml'  # input jrxml filename
-    output_filename = '../demos/output/variables_system.pdf'  # output pdf filename
+    jrxml_filename = './jrxml/variables_system.jrxml'  # input jrxml filename
+    output_filename = './output/variables_system.pdf'  # output pdf filename
 
     # MySQL datasource
     config = {'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python', 'database': 'agatereports'}

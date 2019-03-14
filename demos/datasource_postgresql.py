@@ -14,8 +14,8 @@ def datasource_postgresql_sample():
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
     logger.info('running datasource postgresql sample')
-    jrxml_filename = '../demos/jrxml/datasource_postgresql.jrxml'  # input jrxml filename
-    output_filename = '../demos/output/datasource_postgresql.pdf'  # output pdf filename
+    jrxml_filename = './jrxml/datasource_postgresql.jrxml'  # input jrxml filename
+    output_filename = './output/datasource_postgresql.pdf'  # output pdf filename
 
     # Postgresql datasource
     config = "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"
