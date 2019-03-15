@@ -6,7 +6,7 @@ Pure Python engine to generate reports from JasperReports jrxml file.
 Introduction
 ------------
 AgateReports is a pure Python tool to generate reports without extensive coding.
-It currently relies on Jaspersoft Studio `<https://sourceforge.net/projects/jasperstudio/>`_ to graphically position reporting elements on a report layout.
+It currently relies on Jaspersoft Studio `<https://sourceforge.net/projects/jasperstudio/>`_ to graphically position reporting elements on a report layout and ReportLab to generate PDF files.
 
 .. image:: ./docs/img/overview.png
     :width: 832px
@@ -16,7 +16,7 @@ It currently relies on Jaspersoft Studio `<https://sourceforge.net/projects/jasp
 
 This package aims to be a solution to following users:
 
-- Python developers who want to create a report using GUI tool.
+- Python developers who want to create a report using GUI tool instead of directly coding with ReportLab.
 - Users who want to modify existing reports without programming.
 
 Differences with JasperReports
@@ -66,7 +66,6 @@ Usage Sample
 ---------------
 .. code-block:: python
 
-    from agatereports.adapters import MysqlAdapter
     from agatereports.basic_report import BasicReport
 
     import logging
@@ -87,10 +86,10 @@ Usage Sample
         output_filename = './output/datasource_mysql.pdf'  # output pdf filename
 
         # MySQL datasource
-        config = {'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
-        data_source = MysqlAdapter(**config)
+        config = {'adapter': 'mysql', 'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python',
+                  'database': 'agatereports'}
 
-        pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+        pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_config=config)
         pdf_page.generate_report()
 
 
