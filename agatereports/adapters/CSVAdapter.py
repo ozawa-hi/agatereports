@@ -60,9 +60,10 @@ class CSVAdapter:
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
 
-    input_filename = '../../tests/data/address.csv'
+    # input_filename = '../../tests/data/address.csv'
+    data_config = {'adapter': 'csv', 'filename': '../../tests/data/address.csv'}
 
-    adapter = CSVAdapter(input_filename)
+    adapter = CSVAdapter(data_config.get('filename'))
     header = adapter.execute_query('')
     logger.info(header)
     adapter.close_cursor()

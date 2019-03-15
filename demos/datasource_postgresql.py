@@ -1,4 +1,3 @@
-from agatereports.adapters.PostgresqlAdapter import PostgresqlAdapter
 from agatereports.basic_report import BasicReport
 
 import logging
@@ -18,10 +17,11 @@ def datasource_postgresql_sample():
     output_filename = './output/datasource_postgresql.pdf'  # output pdf filename
 
     # Postgresql datasource
-    config = "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"
-    data_source = PostgresqlAdapter(config)
+    config = {"adapter": "postgres",
+              "config": "host='172.18.0.4' port='5432'"
+                        " dbname='agatereports' user='python' password='python'"}
 
-    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_config=config)
     pdf_page.generate_report()
 
 

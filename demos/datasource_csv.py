@@ -1,4 +1,4 @@
-from agatereports.adapters.CSVAdapter import CSVAdapter
+# from agatereports.adapters.CSVAdapter import CSVAdapter
 from agatereports.basic_report import BasicReport
 
 import logging
@@ -13,11 +13,10 @@ def datasource_csv_sample():
     jrxml_filename = './jrxml/datasource_csv.jrxml'  # input jrxml filename
     output_filename = './output/datasource_csv.pdf'    # output pdf filename
 
-    # CSV datasource
-    csv_filename = './data/product.csv'
-    data_source = CSVAdapter(csv_filename)
+    # CSV datasource configuration
+    data_config = {'adapter': 'csv', 'filename': './data/product.csv'}
 
-    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_config=data_config)
     pdf_page.generate_report()
 
 

@@ -40,11 +40,13 @@ Execute scripts in the following order after connecting to MySQL.
         `create_schema.sql <./create_schema.sql>`_
     2. create test user 'python' with all privileges to database 'agatereports'.
         `create_user.sql <./create_user.sql>`_
-    3. # create database tables:
+    3. create database tables:
         - `create_address.sql <./create_address.sql>`_
         - `create_document.sql <./create_document.sql>`_
         - `create_orders.sql <./create_orders.sql>`_
         - `create_product.sql <./create_product.sql>`_
         - `create_tasks.sql <./create_tasks.sql>`_
+	4. run Python script to create table 'pictures' with a blob field containing jpg image data
+        - `create_pictures.py <./create_pictures.py>`_
 
 END

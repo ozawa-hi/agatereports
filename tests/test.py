@@ -1,4 +1,3 @@
-from agatereports.adapters import MysqlAdapter
 from agatereports.basic_report import BasicReport
 
 import logging
@@ -64,13 +63,14 @@ for filename in filenames:
          }
     ]
 
+    # TODO write tests to check config parameters
     # MySQL datasource
-    config = {'host': '172.18.0.2', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
-    data_source = MysqlAdapter(**config)
+    config = {'adapter': 'mysql', 'host': '172.18.0.2', 'user': 'python', 'password': 'python',
+              'database': 'agatereports'}
 
     # Postgresql datasource
-    # config = "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"
-    # data_source = PostgresqlAdapter(config)
+    # config = {"adapter": "postgres",
+    #           "config": "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"}
 
-    pdf_page = BasicReport(input_filename, output_filename, data_source, fonts)
+    pdf_page = BasicReport(input_filename, output_filename, config, fonts)
     pdf_page.generate_report()

@@ -1,4 +1,6 @@
+from agatereports.adapters import CSVAdapter
 from agatereports.adapters import MysqlAdapter
+from agatereports.adapters import PostgresqlAdapter
 from agatereports.engine.bands.bands import calc_column_footer_band_height, calc_page_footer_band_height,\
     process_bands
 from agatereports.engine.bands.elements import process_jasperReport_element
@@ -48,13 +50,14 @@ def setup_logging(
         logging.basicConfig(level=default_level)
 
 
-def generate_report(jrxml_filename, output_filename, data_source, fonts=None, report_type='pdf'):
+def generate_report(jrxml_filename, output_filename, data_config, fonts=None, report_type='pdf'):
     """
     Generate pdf file.
     :param jrxml_filename: name of jrxml file to use.
     :param output_filename: name of output pdf file.
-    :param data_source:
-    :parm fonts:
+    :param data_config: data source configutation dictionary
+    :param fonts: font configuration list
+    :param report_type: type of file to generate (currently, only 'pdf' is supported)
     """
     setup_logging()
     if input is None or jrxml_filename is None:
@@ -73,8 +76,22 @@ def generate_report(jrxml_filename, output_filename, data_source, fonts=None, re
                            pre_row_data={}, # previous row from datasource
                            row_data={}      # current row drom datasource
                            )
-
-        report_info['main_datasource'] = data_source
+        report_info['main_datasource'] = None
+        if data_config is not None:
+            data_adapter = data_config.pop('adapter')
+            if data_adapter is None:
+                logger.error("'adapter' should be specified in the data configuration:" + str(data_config))
+            else:
+                if data_adapter == 'mysql':
+                    report_info['main_datasource'] = MysqlAdapter(**data_config)
+                elif data_adapter == 'postgres':
+                    report_info['main_datasource'] = PostgresqlAdapter(data_config.get('config'))
+                elif data_adapter == 'csv':
+                    report_info['main_datasource'] = CSVAdapter(data_config.get('filename'))
+                else:
+                    logger.error("'invalid data adapter:" + data_adapter
+                                 + "'. Valid adapter are 'mysql', 'postgres', 'csv'.")
+                    return
 
         jrxml_list = parse_jrxml(jrxml_filename)
         jasper_report_element = jrxml_list.get('jasperReport')
@@ -101,25 +118,23 @@ def generate_report(jrxml_filename, output_filename, data_source, fonts=None, re
 
 
 if __name__ == '__main__':
-    filename = 'barcodes'
+    filename = 'fonts'
 
-    input_filename = '/home/hozawa/JaspersoftWorkspace/AgateReports/' + filename + '.jrxml'  # input jrxml filename
-    # input_filename = '../../tests/jrxml/' + filename + '.jrxml'  # input jrxml filename
-    output_filename = '../../tests/output/pdf_' + filename + '.pdf'
+    input_filename = '../../tests/jrxml/' + filename + '.jrxml'  # input jrxml filename
+    report_filename = '../../tests/output/pdf_' + filename + '.pdf'
 
-    # MySQL datasource
-    config = {'host': 'localhost', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
-    data_source = MysqlAdapter(**config)
+    # MySQL datasource configuration
+    # config = {'adapter': 'mysql', 'host': 'localhost', 'user': 'python', 'password': 'python',
+    #                'database': 'agatereports'}
 
-    # Postgresql datasource
-    # config = "host='172.17.0.2' port='5432' dbname='agatereports' user='python' password='python'"
-    # data_source = PostgresqlAdapter(config)
+    # Postgresql datasource configuration
+    # config = {"adapter": "postgres",
+    #                "config": "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"}
 
-    # CSV datasource
-    # csv_filename = '../../tests/data/address.csv'
-    # data_source = CSVAdapter(csv_filename)
+    # CSV datasource configuration
+    config = {'adapter': 'csv', 'filename': '../../tests/data/address.csv'}
 
-    fonts = [
+    font_list = [
         # list of additional directories to search for fonts
         {'font_path': ['../../tests/fonts/', '/usr/share/fonts/truetype/msttcorefonts/']},
         # Japanese font
@@ -168,4 +183,4 @@ if __name__ == '__main__':
          }
     ]
 
-    generate_report(input_filename, output_filename, data_source, fonts)
+    generate_report(input_filename, report_filename, config, font_list)

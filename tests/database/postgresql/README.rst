@@ -42,7 +42,9 @@ Execute scripts in the following order after connecting to Postgres.
         - `create_orders.sql <./create_orders.sql>`_
         - `create_product.sql <./create_product.sql>`_
         - `create_tasks.sql <create_tasks.sql>`_
-    4. grant privileges to access the tables by the user
+    4. run Python script to create table 'pictures' with a blob field containing jpg image data
+        - `create_pictures.py <./create_pictures.py>`_
+    5. grant privileges to access the tables by the user
         - `grant_priv_to_user.sql <./grant_priv_to_user.sql>`_
 
 END

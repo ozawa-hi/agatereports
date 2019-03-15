@@ -2,6 +2,19 @@ import datetime
 import re
 
 
+def is_bytes(data):
+    """
+    Check if data is of type byte or bytearray.
+    :param data:
+    :return:
+    """
+    try:
+        data = data.decode()
+        return False
+    except AttributeError:
+        return True
+
+
 def add_attr2attributes(element, attributes, prefix=None):
     """
     Add attributes of elements to 'attributes' dictionary.
@@ -54,6 +67,8 @@ def replace_fields(report, expression, attributes):
                                      + str(date_time.day) + ',' + str(date_time.hour) + ',' + str(date_time.minute)\
                                      + ',' + str(date_time.second) + ',' + str(date_time.microsecond) + ','\
                                      + str(date_time.tzinfo) + ')'
+                elif data_type == 'java.lang.Object':
+                    return report['row_data'].get(key, '$F{' + key + '}')
                 else:
                     is_blank_when_null = convert2boolean(attributes.get('isBlankWhenNull'))
                     value = report['row_data'].get(key, '$F{' + key + '}')
@@ -124,7 +139,12 @@ def replace_text(report, expression, attributes):
     :return: evaluated expression ready for output
     """
     expression = replace_fields(report, expression=expression, attributes=attributes)   # replace $F{} with values
+    if isinstance(expression, (bytes, memoryview)):
+        return expression
     expression = replace_variables(report.get('variables'), expression, attributes)     # replace $V{} with values
+    # expression = replace_variables(report.get('variables'), expression, attributes)  # replace $V{} with values
+    # return expression
+
     try:
         return eval(expression)
     except SyntaxError:

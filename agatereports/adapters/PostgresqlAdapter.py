@@ -83,10 +83,11 @@ class PostgresqlAdapter:
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
 
-    config = "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"
+    config = {"adapter": "postgres",
+              "config": "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"}
     sql = 'SELECT * FROM orders'
 
-    adapter = PostgresqlAdapter(config)
+    adapter = PostgresqlAdapter(config.get('config'))
     rows = adapter.execute_query(sql)
 
     logging.info(rows)

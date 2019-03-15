@@ -7,6 +7,11 @@ from demos.dates import dates_sample
 from demos.fonts import fonts_sample
 from demos.hello_world import hello_world_sample
 from demos.image import image_sample
+from demos.image_url import image_url_sample
+from demos.image_workspace import image_workspace_sample
+from demos.image_database import image_database_sample
+from demos.image_database_blob_mysql import image_database_blob_mysql_sample
+from demos.image_database_blob_postgresql import image_database_blob_postgresql_sample
 from demos.no_datasource import no_datasource_sample
 from demos.number_formatting_sample import number_formatting_sample
 from demos.page_format_A3 import page_format_A3_sample
@@ -37,7 +42,13 @@ def run_all_demos():
     shapes_sample()         # draw rectangles, ellipses, lines
     shapes_extra_sample()   # draw circle (not supported by JasperReports)
     barcode_sample()        # display barcodes
-    image_sample()          # display images
+
+    image_sample()              # display images from local file system
+    image_url_sample()          # display an image from Internet
+    image_workspace_sample()    # display an image from workspace
+    image_database_sample()                  # display images corresponding to filename saved in database table
+    image_database_blob_mysql_sample()       # display images saved in mysql database table
+    image_database_blob_postgresql_sample()  # display images saved in postgresql database table
 
     datasource_csv_sample()         # display data read from a csv file
     datasource_mysql_sample()       # display data queried from MySQL database

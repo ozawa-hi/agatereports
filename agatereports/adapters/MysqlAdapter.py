@@ -27,6 +27,11 @@ class MysqlAdapter:
                 logger.error('Specified MySQL database does not exist')
             else:
                 logger.error('Failed to connect to MySQL database', exc_info=True)
+        except AttributeError as err:
+            self.close_cursor()
+            self.conn = None
+            self.cur = None
+            print('invalid connection configuration:' + str(self.config))
 
     def get_cursor(self):
         """

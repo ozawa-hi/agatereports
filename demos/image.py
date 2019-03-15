@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 def image_sample():
     """
-    Image sample.
+    Image images in a local file system sample.
     """
     logger.info('running image sample')
     jrxml_filename = './jrxml/image.jrxml'  # input jrxml filename

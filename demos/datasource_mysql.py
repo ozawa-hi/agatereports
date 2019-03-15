@@ -1,4 +1,3 @@
-from agatereports.adapters import MysqlAdapter
 from agatereports.basic_report import BasicReport
 
 import logging
@@ -19,10 +18,10 @@ def datasource_mysql_sample():
     output_filename = './output/datasource_mysql.pdf'  # output pdf filename
 
     # MySQL datasource
-    config = {'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python', 'database': 'agatereports'}
-    data_source = MysqlAdapter(**config)
+    config = {'adapter': 'mysql', 'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python',
+              'database': 'agatereports'}
 
-    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=data_source)
+    pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_config=config)
     pdf_page.generate_report()
 
 

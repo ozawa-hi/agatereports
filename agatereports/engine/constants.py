@@ -1,6 +1,10 @@
 DEFAULT_FONT='a'
 DEFAULT_FONT_SIZE = 10
 
+protocols = ('data://', 'file://', 'ftp://', 'http://', 'https://', 'mailto://', 'ssh://', 'tel://', 'urn://', 'ws://', 'wss://', 'view-source://')
+
+workspace_prefix = ('file:')
+
 db_field_type = {
  0: 'DECIMAL',
  1: 'TINY',

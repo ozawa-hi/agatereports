@@ -1,8 +1,8 @@
 # Copyright (c) 2019, Hitoshi Ozawa
 # see LICENSE for license details
 __doc__ = """AgateReport report_info generation library."""
-__version__ = "0.0.1"
-__date__ = '20190308'
+__version__ = "0.0.2"
+__date__ = '20190315'
 
 import sys
 
