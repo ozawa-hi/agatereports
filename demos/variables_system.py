@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def variables_system_sample():
+def variables_system_sample(jrxml_filename = './jrxml/variables_system.jrxml', output_filename = './output/variables_system.pdf'):
     """
     Displaying variables such as row number and page number that are supported by the engine.
 
@@ -18,8 +18,8 @@ def variables_system_sample():
     'PAGE_COUNT': current row number of the data source in a page
      """
     logger.info('running variables system sample')
-    jrxml_filename = './jrxml/variables_system.jrxml'  # input jrxml filename
-    output_filename = './output/variables_system.pdf'  # output pdf filename
+    # jrxml_filename = './jrxml/variables_system.jrxml'  # input jrxml filename
+    # output_filename = './output/variables_system.pdf'  # output pdf filename
 
     # MySQL datasource
     config = {'adapter': 'mysql', 'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python',

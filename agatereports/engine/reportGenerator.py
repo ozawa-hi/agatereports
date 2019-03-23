@@ -26,8 +26,8 @@ try:
 except Exception:
     java = False
 
-# TODO need to break this file into smaller files.
 # TODO need performance improvement.
+# TODO move fetching first row from data source to front to enable using field value as output filename
 
 
 def setup_logging(
@@ -35,8 +35,12 @@ def setup_logging(
     default_level=logging.INFO,
     env_key='LOG_CFG'
 ):
-    """Setup logging configuration
-
+    """
+    Read logging configuration from file.
+    :param default_path: default path to find logging configuration file
+    :param default_level: default logging level
+    :param env_key: read logging configuration default path from environmental variable
+    :return:
     """
     path = default_path
     value = os.getenv(env_key, None)
@@ -60,6 +64,7 @@ def generate_report(jrxml_filename, output_filename, data_config, fonts=None, re
     :param report_type: type of file to generate (currently, only 'pdf' is supported)
     """
     setup_logging()
+
     if input is None or jrxml_filename is None:
         logger.error('No report generated. Please specify jrxml filename and output filename to generate.')
     else:
@@ -77,6 +82,7 @@ def generate_report(jrxml_filename, output_filename, data_config, fonts=None, re
                            row_data={}      # current row drom datasource
                            )
         report_info['main_datasource'] = None
+        report_info['output_to_canvas'] = False
         if data_config is not None:
             data_adapter = data_config.pop('adapter')
             if data_adapter is None:
@@ -92,47 +98,49 @@ def generate_report(jrxml_filename, output_filename, data_config, fonts=None, re
                     logger.error("'invalid data adapter:" + data_adapter
                                  + "'. Valid adapter are 'mysql', 'postgres', 'csv'.")
                     return
+        try:
+            jrxml_list = parse_jrxml(jrxml_filename)
+            jasper_report_element = jrxml_list.get('jasperReport')
+            process_jasperReport_element(report_info, jasper_report_element)
 
-        jrxml_list = parse_jrxml(jrxml_filename)
-        jasper_report_element = jrxml_list.get('jasperReport')
-        process_jasperReport_element(report_info, jasper_report_element)
+            # create report_info
+            report_info['output_filename'] = output_filename
+            # create_canvas(report_info)  # TODO move this to queryString. Note that there can be no queryString element
 
-        # create report_info
-        report_info['output_filename'] = output_filename
-        create_canvas(report_info)
+            # set fonts if any
+            report_info['available_fonts'] = set_fonts(fonts)
 
-        # set fonts if any
-        report_info['available_fonts'] = set_fonts(fonts)
+            # set band's element to global report_info[]
+            bands = jasper_report_element.get('child')
+            for key, value in bands.items():
+                report_info[key] = value
 
-        # set band's element to global report_info[]
-        bands = jasper_report_element.get('child')
-        for key, value in bands.items():
-            report_info[key] = value
+            # set column footer and footer heights. This is used to calculate available height for details band.
+            report_info['col_footer_height'] = calc_column_footer_band_height(report_info)
+            report_info['page_footer_height'] = calc_page_footer_band_height(report_info)
+            report_info['printingFooter'] = False  # flag to denote if printing out column and page footers
 
-        # set column footer and footer heights. This is used to calculate available height for details band.
-        report_info['col_footer_height'] = calc_column_footer_band_height(report_info)
-        report_info['page_footer_height'] = calc_page_footer_band_height(report_info)
-        report_info['printingFooter'] = False    # flag to denote if printing out column and page footers
-
-        process_bands(report_info, bands)
+            process_bands(report_info, bands)
+        except FileNotFoundError as err:
+            logging.error('jrxml file "' + jrxml_filename + '" is not found. Please recheck the path and filename.')
 
 
 if __name__ == '__main__':
-    filename = 'fonts'
+    filename = 'only_page_footer'
 
     input_filename = '../../tests/jrxml/' + filename + '.jrxml'  # input jrxml filename
     report_filename = '../../tests/output/pdf_' + filename + '.pdf'
 
     # MySQL datasource configuration
-    # config = {'adapter': 'mysql', 'host': 'localhost', 'user': 'python', 'password': 'python',
-    #                'database': 'agatereports'}
+    config = {'adapter': 'mysql', 'host': 'localhost', 'user': 'python', 'password': 'python',
+                   'database': 'agatereports'}
 
     # Postgresql datasource configuration
     # config = {"adapter": "postgres",
     #                "config": "host='172.18.0.4' port='5432' dbname='agatereports' user='python' password='python'"}
 
     # CSV datasource configuration
-    config = {'adapter': 'csv', 'filename': '../../tests/data/address.csv'}
+    # config = {'adapter': 'csv', 'filename': '../../tests/data/address.csv'}
 
     font_list = [
         # list of additional directories to search for fonts

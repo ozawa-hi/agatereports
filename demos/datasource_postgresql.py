@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def datasource_postgresql_sample():
+def datasource_postgresql_sample(jrxml_filename = './jrxml/datasource_postgresql.jrxml', output_filename = './output/datasource_postgresql.pdf'):
     """
     PostgreSQL data source sample.
     WARNING:Before running this sample, schema 'agatereports' must be create and populated.
@@ -13,8 +13,8 @@ def datasource_postgresql_sample():
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
     logger.info('running datasource postgresql sample')
-    jrxml_filename = './jrxml/datasource_postgresql.jrxml'  # input jrxml filename
-    output_filename = './output/datasource_postgresql.pdf'  # output pdf filename
+    # jrxml_filename = './jrxml/datasource_postgresql.jrxml'  # input jrxml filename
+    # output_filename = './output/datasource_postgresql.pdf'  # output pdf filename
 
     # Postgresql datasource
     config = {"adapter": "postgres",

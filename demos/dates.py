@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def dates_sample():
+def dates_sample(jrxml_filename = './jrxml/dates.jrxml', output_filename = './output/dates.pdf'):
     """
     Dates sample.
     WARNING: This sample uses MySQL database.
@@ -17,8 +17,8 @@ def dates_sample():
     Date/time format is specified using Python strftime formats. e.g. %Y-%m-%d
      """
     logger.info('running dates sample')
-    jrxml_filename = './jrxml/dates.jrxml'  # input jrxml filename
-    output_filename = './output/dates.pdf'  # output pdf filename
+    # jrxml_filename = './jrxml/dates.jrxml'  # input jrxml filename
+    # output_filename = './output/dates.pdf'  # output pdf filename
 
     # MySQL datasource
     config = {'adapter': 'mysql', 'host': 'localhost', 'user': 'python', 'password': 'python',

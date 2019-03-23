@@ -6,13 +6,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def image_database_sample():
+def image_database_sample(jrxml_filename = './jrxml/image_database.jrxml', output_filename = './output/image_database.pdf'):
     """
     Display an image based on file path from a database table.
     """
     logger.info('running image database sample')
-    jrxml_filename = './jrxml/image_database.jrxml'  # input jrxml filename
-    output_filename = './output/image_database.pdf'    # output pdf filename
+    # jrxml_filename = './jrxml/image_database.jrxml'  # input jrxml filename
+    # output_filename = './output/image_database.pdf'    # output pdf filename
 
     # MySQL datasource configuration
     config = {'adapter': 'mysql', 'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python',

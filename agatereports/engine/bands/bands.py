@@ -27,8 +27,8 @@ def create_new_page(report):
     report['printingFooter'] = False
     report['canvas'].showPage()
     report['cur_y'] = report['pageHeight'] - report['topMargin']
-    page_header_band(report)
-    column_header_band(report)
+    page_header_band(report=report, force=True)
+    column_header_band(report=report, force=True)
     report['variables']['PAGE_NUMBER']['value'] += 1
     report['variables']['PAGE_COUNT']['value'] = 1
     report['variables']['COLUMN_COUNT']['value'] = 1
@@ -54,7 +54,10 @@ def process_query_string_band(report, element):
     sql_stmt = element.get('value')
     if sql_stmt is not None:
         sql_stmt = sql_stmt.strip()
-        report['field_names'] = report['main_datasource'].execute_query(sql_stmt)
+        # TODO instead of getting field names from query, get from 'field' element list
+        report['main_datasource'].execute_query(sql_stmt)
+        # instead of getting field names from datasourvce, get field names field elements
+        # report['field_names'] = report['main_datasource'].execute_query(sql_stmt)
 
 
 def process_field_band(report, element):
@@ -71,6 +74,12 @@ def process_field_band(report, element):
     if report.get('field_dict') is None:
         report['field_dict'] = dict()
     report['field_dict'][name] = datatype
+
+    if report.get('field_names') is None:
+        report['field_names'] = [name]
+    else:
+        report['field_names'].append(name)
+    # print(report['field_names'])
 
 
 def process_variable_band(report, element):
@@ -112,6 +121,7 @@ def groupHeader(report, element):
     logger.debug('groupHeader:', element)
     pass
 
+
 def groupFooter(report, element):
     """
 
@@ -129,6 +139,7 @@ group_element_dict={
     'groupHeader': groupHeader,
     'groupFooter': groupFooter
 }
+
 
 def process_group_band(report, element):
     """
@@ -155,35 +166,45 @@ def process_title_band(report, element=None):
     :param element:
     :return:
     """
-    process_band_element(report, element)
+    if not report['output_to_canvas']:
+        if report.get('canvas') is None:
+            create_canvas(report)
+        process_band_element(report, element)
 
 
-def page_header_band(report, element=None):
+def page_header_band(report, element=None, force=False):
     """
 
     :param report: dictionary holding report information
     :param element:
-    :return:
+    :param force: True if unconditionally output, False if only output if nothing is yet output to canvas
     """
-    if element is None:
-        page_header =  report.get('pageHeader')
-        if page_header is not None:
-            element = report['pageHeader'][0]['pageHeader']
-    process_band_element(report, element)
+    if not report['output_to_canvas'] or force:
+        if element is None:
+            page_header = report.get('pageHeader')
+            if page_header is not None:
+                element = report['pageHeader'][0]['pageHeader']
+
+        if report.get('canvas') is None:
+            create_canvas(report)
+        process_band_element(report, element)
 
 
-def column_header_band(report, element=None):
+def column_header_band(report, element=None, force=False):
     """
 
     :param report: dictionary holding report information
     :param element:
-    :return:
+    :param force: True if unconditionally output, False if only output if nothing is yet output to canvas
     """
-    if element is None:
-        column_header = report.get('columnHeader')
-        if column_header is not None:
-            element = report['columnHeader'][0]['columnHeader']
-    process_band_element(report, element)
+    if not report['output_to_canvas'] or force:
+        if element is None:
+            column_header = report.get('columnHeader')
+            if column_header is not None:
+                element = report['columnHeader'][0]['columnHeader']
+        if report.get('canvas') is None:
+            create_canvas(report)
+        process_band_element(report, element)
 
 
 def get_band_height(element):
@@ -218,6 +239,9 @@ def column_footer_band(report, element=None):
         column_footer = report.get('columnFooter')
         if column_footer is not None:
             element = report['columnFooter'][0]['columnFooter']
+    if report.get('canvas') is None:
+        create_canvas(report)
+    report['printingFooter'] = True
     process_band_element(report, element)
 
 
@@ -243,6 +267,9 @@ def page_footer_band(report, element=None):
         page_footer = report.get('pageFooter')
         if page_footer is not None:
             element = report['pageFooter'][0]['pageFooter']
+    if report.get('canvas') is None:
+        create_canvas(report)
+    report['printingFooter'] = True
     process_band_element(report, element)
 
 
@@ -252,6 +279,9 @@ def summary_band(report, element):
     :param report: dictionary holding report information
     :param element:
     """
+    if report.get('canvas') is None:
+        create_canvas(report)
+    report['printingFooter'] = True
     process_band_element(report, element)
 
 
@@ -284,7 +314,6 @@ band_elements_dict = {
 }
 
 
-# def process_band(report, element, row_data=''):
 def process_band(report, element):
     """
     Process jrxml band element. Page breaks are inserted when there is not enough space to write a band.
@@ -295,9 +324,8 @@ def process_band(report, element):
     band_height = int(band_settings.get('height', '34'))
 
      # band_split_type = band_settings.get('splitType', 'Stretch')
-
     if report['cur_y'] < (report['bottomMargin'] + report['col_footer_height'] + report['page_footer_height']
-                               + band_height) and not report['printingFooter']:
+                          + band_height) and not report['printingFooter']:
         create_new_page(report)
 
     if element.get('child') is not None:
@@ -340,6 +368,17 @@ def process_band(report, element):
 #                     process_band(report, title_element.get('band'), row_data)
 
 
+def check_for_new_page(report):
+    if report.get('canvas') is None:
+        create_canvas(report)
+        if report.get('title') is not None:
+            report_elements_dict['title'](report, report['title'][0].get('title'))
+        if report.get('pageHeader') is not None:
+            report_elements_dict['pageHeader'](report, report['pageHeader'][0].get('pageHeader'))
+        if report.get('columnHeader') is not None:
+            report_elements_dict['columnHeader'](report, report['columnHeader'][0].get('columnHeader'))
+
+
 def process_detail_band_element(report, element):
     """
     Loop through datasource and output detail band rows
@@ -352,34 +391,64 @@ def process_detail_band_element(report, element):
     if band_element is not None:    # only process if there is a jrxml 'band' element
         title_element = band_element[0]
 
+        # check_for_new_page(report)
+
         if report.get('main_datasource') is None:   # when there is no datasource, just process static page
             row_data = None
+            check_for_new_page(report)
+
             # process_band(report, title_element.get('band'), row_data)
+
             process_band(report, title_element.get('band'))
         else:
             # fetch row from datasource and process each row
+            check_for_new_page(report)
             while True:
-                if report['main_datasource'] is not None:
-                    row = report['main_datasource'].fetch_row()
+                # if report['main_datasource'] is not None:
+                row = report['main_datasource'].fetch_row()
 
-                    report['variables']['REPORT_COUNT']['value'] += 1
-                    report['variables']['PAGE_COUNT']['value'] += 1
+                report['variables']['REPORT_COUNT']['value'] += 1
+                report['variables']['PAGE_COUNT']['value'] += 1
+                # if report.get('canvas') is None:
+                #     create_canvas(report)
+                #     if report.get('title') is not None:
+                #         report_elements_dict['title'](report, report['title'][0].get('title'))
+                #     if report.get('pageHeader') is not None:
+                #         report_elements_dict['pageHeader'](report, report['pageHeader'][0].get('pageHeader'))
+                #     if report.get('columnHeader') is not None:
+                #         report_elements_dict['columnHeader'](report, report['columnHeader'][0].get('columnHeader'))
 
-                    if row is None:
-                        break
-                    report['variables']['COLUMN_COUNT']['value'] += 1
+                if row is None:
+                    break
+                report['variables']['COLUMN_COUNT']['value'] += 1
 
-                    if type(row) == tuple or type(row) == list:  # regular result set
-                        # TODO instead of creating a dictionary, directly use list instead.
-                        #  Replace using Field elements entries
-                        report['row_data'] = dict((field, value) for field, value in zip(report['field_names'], row))
-                    elif type(row) == psycopg2.extras.DictRow:  # result in dictionary format
-                        report['row_data'] = row
-                    else:
-                        logging.error("invalid datasource format.")
-                        report['row_data'] = None
+                if type(row) == tuple or type(row) == list:  # regular result set
+                    # TODO instead of creating a dictionary, directly use list instead.
+                    #  Replace using Field elements entries
+                    report['row_data'] = dict((field, value) for field, value in zip(report['field_names'], row))
+                elif type(row) == psycopg2.extras.DictRow:  # result in dictionary format
+                    report['row_data'] = row
+                else:
+                    logging.error("invalid datasource format.")
+                    report['row_data'] = None
+                process_band(report, title_element.get('band'))
+                # TODO if page per record, then set report['canvas'] = None
+    report['output_to_canvas'] = True
 
-                    process_band(report, title_element.get('band'))
+
+def process_last_page_footer(report, element):
+    if report.get('canvas') is None:
+        create_canvas(report)
+    report['printingFooter'] = True
+    process_band_element(report, element)
+
+
+def process_no_data(report, element):
+    if report.get('canvas') is None:
+        create_canvas(report)
+    report['printingFooter'] = True
+    process_band_element(report, element)
+
 
 """
 list of report_info elements in a report_info.
@@ -405,9 +474,9 @@ report_elements_dict = {
     "detail": process_detail_band_element,
     "columnFooter": column_footer_band,
     "pageFooter": page_footer_band,
-    "lastPageFooter": process_band_element,
+    "lastPageFooter": process_last_page_footer,
     'summary': summary_band,
-    'noData': process_band_element,
+    'noData': process_no_data,
 }
 
 """
@@ -428,13 +497,17 @@ report_elements_list = [
     "variable",
     "filterExpression",
     "background",
-    "title",
-    "pageHeader",
-    "columnHeader",
-    "group",
+    # "title",          # process title, pageHeader, columnHeader after later to make it possible to have
+    # "pageHeader",     # filename based on datasource
+    # "columnHeader",
+    # "group",          # TODO currently not supported. Need to read datasource in group
     "detail",
     'summary',
     "columnFooter",
+    "title",
+    "pageHeader",
+    "columnHeader",
+    # "group",
     # "pageFooter",     # pageFooter, lastPageFooter, and noDate are processed separately because they are either one.
     # "lastPageFooter",
     # 'noData'
@@ -479,8 +552,13 @@ def process_no_data_section(report):
         report_elements_dict['noData'](report, report['noData'][0].get('noData'))
 
 
+def process_null_data(report):
+    pass
+
+
 """Dictionary of method to execute when there is no data in datasource."""
 when_no_data_type_dict = {
+    'Null': process_null_data,
     'NoPages': process_no_pages,
     'NoDataSection': process_no_data_section,
     'BlankPage': process_blank_page,

@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def image_database_blob_postgresql_sample():
+def image_database_blob_postgresql_sample(jrxml_filename = './jrxml/image_database_blob.jrxml', output_filename = './output/image_database_blob_postgresql.pdf'):
     """
     Display an image saved as a blob in a postgresql database table column.
 
@@ -13,8 +13,8 @@ def image_database_blob_postgresql_sample():
     populated database table.
     """
     logger.info('running image database blob sample')
-    jrxml_filename = './jrxml/image_database_blob.jrxml'  # input jrxml filename
-    output_filename = './output/image_database_blob_postgresql.pdf'    # output pdf filename
+    # jrxml_filename = './jrxml/image_database_blob.jrxml'  # input jrxml filename
+    # output_filename = './output/image_database_blob_postgresql.pdf'    # output pdf filename
 
     # Postgresql datasource
     config = {"adapter": "postgres",

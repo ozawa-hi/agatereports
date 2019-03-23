@@ -29,5 +29,6 @@ def write_to_file(report):
     :param report: dictionary holding report information
     """
     # save page to file
-    report['canvas'].showPage()  # start a new page
-    report['canvas'].save()      # save to a file
+    if report.get('canvas') is not None:
+        report['canvas'].showPage()  # start a new page
+        report['canvas'].save()      # save to a file

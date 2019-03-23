@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def datasource_mysql_sample():
+def datasource_mysql_sample(jrxml_filename = './jrxml/datasource_mysql.jrxml', output_filename = './output/datasource_mysql.pdf'):
     """
     MySQL data source sample.
 
@@ -14,8 +14,8 @@ def datasource_mysql_sample():
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
     logger.info('running datasource mysql sample')
-    jrxml_filename = './jrxml/datasource_mysql.jrxml'  # input jrxml filename
-    output_filename = './output/datasource_mysql.pdf'  # output pdf filename
+    # jrxml_filename = './jrxml/datasource_mysql.jrxml'  # input jrxml filename
+    # output_filename = './output/datasource_mysql.pdf'  # output pdf filename
 
     # MySQL datasource
     config = {'adapter': 'mysql', 'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python',

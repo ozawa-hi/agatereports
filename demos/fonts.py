@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def fonts_sample():
+def fonts_sample(jrxml_filename = './jrxml/fonts.jrxml', output_filename = './output/fonts.pdf'):
     """
     Font samples.
     """
@@ -70,8 +70,8 @@ def fonts_sample():
          }
     ]
 
-    jrxml_filename = './jrxml/fonts.jrxml'  # input jrxml filename
-    output_filename = './output/fonts.pdf'    # output pdf filename
+    # jrxml_filename = './jrxml/fonts.jrxml'  # input jrxml filename
+    # output_filename = './output/fonts.pdf'    # output pdf filename
 
     pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, fonts=font_list)
     pdf_page.generate_report()

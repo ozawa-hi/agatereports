@@ -4,13 +4,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def hello_world_sample():
+def hello_world_sample(jrxml_filename='./jrxml/hello_world.jrxml', output_filename='./output/hello_world.pdf'):
     """
     Hello World sample.
     """
     logger.info('running hello world sample')
-    jrxml_filename = './jrxml/hello_world.jrxml'  # input jrxml filename
-    output_filename = './output/hello_world.pdf'    # output pdf filename
+    # jrxml_filename = './jrxml/hello_world.jrxml'  # input jrxml filename
+    # output_filename = './output/hello_world.pdf'    # output pdf filename
 
     pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename)
     pdf_page.generate_report()

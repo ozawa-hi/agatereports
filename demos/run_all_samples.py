@@ -13,7 +13,8 @@ from demos.image_database import image_database_sample
 from demos.image_database_blob_mysql import image_database_blob_mysql_sample
 from demos.image_database_blob_postgresql import image_database_blob_postgresql_sample
 from demos.no_datasource import no_datasource_sample
-from demos.number_formatting_sample import number_formatting_sample
+from demos.no_elements import no_elements_sample
+from demos.number_formatting import number_formatting_sample
 from demos.page_format_A3 import page_format_A3_sample
 from demos.page_format_landscape import page_format_landscape_sample
 from demos.page_format_free_page_size import page_format_free_page_size_sample
@@ -67,6 +68,7 @@ def run_all_demos():
     blank_when_null_sample()            # display blank instead of 'None' in a field
 
     no_datasource_sample()              # when no datasource is specified (i.e. datasource is None)
+    no_elements_sample()                # when there is no elements in jrxml layout
 
     # following samples are when datasource is specified but there is no corresponding row
     when_no_data_null_sample()            # 'When No Data Type' is '<NULL>'

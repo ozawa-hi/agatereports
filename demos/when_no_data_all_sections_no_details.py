@@ -4,7 +4,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def when_no_data_all_sections_no_details_sample():
+def when_no_data_all_sections_no_details_sample(jrxml_filename = './jrxml/when_no_data_all_sections_no_details.jrxml',
+                                                output_filename = './output/when_no_data_all_sections_no_details.pdf'):
     """
     When no data, all sections no details sample.
 
@@ -25,8 +26,8 @@ def when_no_data_all_sections_no_details_sample():
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
     logger.info('running when no data no pages sample')
-    jrxml_filename = './jrxml/when_no_data_all_sections_no_details.jrxml'  # input jrxml filename
-    output_filename = './output/when_no_data_all_sections_no_details.pdf'  # output pdf filename
+    # jrxml_filename = './jrxml/when_no_data_all_sections_no_details.jrxml'  # input jrxml filename
+    # output_filename = './output/when_no_data_all_sections_no_details.pdf'  # output pdf filename
 
     # MySQL datasource
     config = {'adapter': 'mysql', 'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python',

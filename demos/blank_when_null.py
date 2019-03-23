@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def blank_when_null_sample():
+def blank_when_null_sample(jrxml_filename = './jrxml/blank_when_null.jrxml', output_filename = './output/blank_when_null.pdf'):
     """
     Blank when null sample.
     When 'Blank When NULL' is checked on a TextField properties, no value will be displayed when the value is None.
@@ -20,8 +20,8 @@ def blank_when_null_sample():
     CAUTION: Edit values of 'host' and 'port' to those in your environment.
      """
     logger.info('running blank when null sample')
-    jrxml_filename = './jrxml/blank_when_null.jrxml'  # input jrxml filename
-    output_filename = './output/blank_when_null.pdf'  # output pdf filename
+    # jrxml_filename = './jrxml/blank_when_null.jrxml'  # input jrxml filename
+    # output_filename = './output/blank_when_null.pdf'  # output pdf filename
 
     # MySQL datasource
     config = {'adapter': 'mysql', 'host': 'localhost', 'port': '3306','user': 'python', 'password': 'python',

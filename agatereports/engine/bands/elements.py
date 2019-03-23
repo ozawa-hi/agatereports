@@ -56,7 +56,7 @@ def process_jasperReport_element(report_info, element):
     report_info['columnCount'] = float(page_settings.get('columnCount', '1'))
     report_info['printOrder'] = page_settings.get('printOrder', 'vertical')
     report_info['orientation'] = page_settings.get('orientation', 'Portrait')
-    report_info['whenNoDataType'] = page_settings.get('whenNoDataType', 'NoPages')
+    report_info['whenNoDataType'] = page_settings.get('whenNoDataType', 'Null')
     report_info['columnWidth'] = float(page_settings.get('columnWidth', '555'))
     report_info['columnSpacing'] = float(page_settings.get('columnSpacing', '0'))
     report_info['leftMargin'] = float(page_settings.get('leftMargin', '20'))
