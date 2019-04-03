@@ -47,6 +47,12 @@ def compare_filenames(file_list1, file_list2):
 
 
 def common_filenames(file_list1, file_list2):
+    """
+    Find elements common in 2 lists
+    :param file_list1: a list to compare
+    :param file_list2: a list to compare
+    :return: list of common items
+    """
     return set(file_list1).intersection(file_list2)
 
 
@@ -54,9 +60,9 @@ def call_convert(path, src_filename, dest_filename):
     """
     Call convert to convert pdf to png using ImageMagick and GhostScript.
     WARNING: ImageMagick and GhostScript needs to be setup and executable from command prompt.
-    :param path:
-    :param src_filename:
-    :param dest_filename:
+    :param path: directory to execute 'convert' command
+    :param src_filename: source filename to pass to the 'convert' statement
+    :param dest_filename: output filename of 'convert' statement
     """
     try:
         FNULL = open(os.devnull, 'w')
@@ -73,6 +79,12 @@ def call_convert(path, src_filename, dest_filename):
 
 
 def compare_pdf_file(path1, path2):
+    """
+    Compare content of 2 pdf files by converting pages to png image files
+    :param path1: path of the pdf file to compare
+    :param path2:  path of the pdf file to compare
+    :return: difference of image files
+    """
     img1 = Image.open(path1)
     img2 = Image.open(path2)
 
@@ -84,6 +96,11 @@ def compare_pdf_file(path1, path2):
 
 
 def convert_pdf2png(path, img):
+    """
+    Convert pdf file to png image fil (per pdf page)
+    :param path: path to pdf file to convert
+    :param img: directory to output image files
+    """
     if not os.path.isdir(path+'/'+img):
         os.mkdir(path+'/'+img)
 
@@ -94,6 +111,13 @@ def convert_pdf2png(path, img):
 
 
 def compare_reports(org_dir='./output_original/', cur_dir='./output/', img='img'):
+    """
+    Compare pdf files in specified directories.
+    :param org_dir: directory containing pdf files to compare against
+    :param cur_dir: directory containing pdf files to test
+    :param img: subdirectory name to generate image files
+    :return:
+    """
     files_in_org_dir = get_files_in_dir(org_dir)
     files_in_test_dir = get_files_in_dir(cur_dir)
 
@@ -121,7 +145,6 @@ def compare_reports(org_dir='./output_original/', cur_dir='./output/', img='img'
     for file in common_files:
         image_list_org = [os.path.basename(f) for f in glob.glob(org_dir + img + '/' + file + "*.png")]
         image_list_test = [os.path.basename(f) for f in glob.glob(cur_dir + img + '/' + file + "*.png")]
-        # print(file, image_list_test)
 
         if len(image_list_org) != len(image_list_test):
             logger.error("number of pages is different in report '" + file + "'.pdf'. original pages:"
@@ -131,27 +154,27 @@ def compare_reports(org_dir='./output_original/', cur_dir='./output/', img='img'
             missing_pages = compare_filenames(image_list_org, image_list_test)
             additional_pages = compare_filenames(image_list_test, image_list_org)
             if len(missing_pages) > 0:
-                print('missing pages:', missing_pages)
+                logging.error('missing pages:', missing_pages)
             if len(additional_files) > 0:
-                print('Additional pages:', additional_pages)
+                logging.error('Additional pages:', additional_pages)
 
             # check content of pages
             if len(missing_pages) == 0 and len(additional_pages) ==0:
                 for img_file in image_list_test:
                     result = compare_pdf_file(org_dir + img + '/' + img_file, cur_dir + img + '/' + img_file)
                     if not file.startswith('pdf_current_date') and result is not None:
-                        print('content of file ' + file + ' is different')
+                        logging.error('content of file ' + file + ' is different')
 
 
 if __name__ == '__main__':
     org = './output_original/'
     cur = './output/'
-    img = 'img'
+    img_sub = 'img'
 
     # uncomment to convert original test directory pdf files
     # convert_pdf2png(org, img)
 
-    compare_reports(org, cur, img)
+    compare_reports(org, cur, img_sub)
 
 
 

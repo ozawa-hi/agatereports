@@ -27,7 +27,6 @@ except Exception:
     java = False
 
 # TODO need performance improvement.
-# TODO move fetching first row from data source to front to enable using field value as output filename
 
 
 def setup_logging(
@@ -59,7 +58,7 @@ def generate_report(jrxml_filename, output_filename, data_config, fonts=None, re
     Generate pdf file.
     :param jrxml_filename: name of jrxml file to use.
     :param output_filename: name of output pdf file.
-    :param data_config: data source configutation dictionary
+    :param data_config: data source configuration dictionary
     :param fonts: font configuration list
     :param report_type: type of file to generate (currently, only 'pdf' is supported)
     """
@@ -83,6 +82,9 @@ def generate_report(jrxml_filename, output_filename, data_config, fonts=None, re
                            )
         report_info['main_datasource'] = None
         report_info['output_to_canvas'] = False
+        report_info['group_names'] = {}
+        report_info['group_cur'] = []
+        report_info['prev_value'] = {}
         if data_config is not None:
             data_adapter = data_config.pop('adapter')
             if data_adapter is None:
@@ -126,14 +128,17 @@ def generate_report(jrxml_filename, output_filename, data_config, fonts=None, re
 
 
 if __name__ == '__main__':
-    filename = 'only_page_footer'
+    filename = 'only_group_header_with_field'
+    # filename = 'group_without_expression'
+    # filename = 'only_group_header'
+    # filename = 'text_fields'
 
     input_filename = '../../tests/jrxml/' + filename + '.jrxml'  # input jrxml filename
     report_filename = '../../tests/output/pdf_' + filename + '.pdf'
 
     # MySQL datasource configuration
     config = {'adapter': 'mysql', 'host': 'localhost', 'user': 'python', 'password': 'python',
-                   'database': 'agatereports'}
+              'database': 'agatereports'}
 
     # Postgresql datasource configuration
     # config = {"adapter": "postgres",

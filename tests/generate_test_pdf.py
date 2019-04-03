@@ -9,9 +9,11 @@ def generate_test_pdf(output_dir='output'):
     Generate test pdf reports.
     """
     filenames = ['empty_report', 'no_data', 'text_fields', 'text_fields_lastPageFooter', 'shapes',
-                 'current_date', 'barcodes', 'pattern', 'when_no_data_All_sections_no_detail', 'when_no_data_Blank_page',
-                 'when_no_data_No_data_section', 'when_no_data_No_pages', 'when_no_data_Null', 'fonts', 'variables_system',
-                 'only_title', 'only_column_header', 'only_page_footer', 'only_page_header']
+                 'current_date', 'barcodes', 'pattern', 'when_no_data_All_sections_no_detail',
+                 'when_no_data_Blank_page', 'when_no_data_No_data_section', 'when_no_data_No_pages',
+                 'when_no_data_Null', 'fonts', 'variables_system',
+                 'only_title', 'only_column_header', 'only_page_footer', 'only_page_header',
+                 'only_group_header', 'only_group_footer', 'only_group_header_with_field']
 
     for filename in filenames:
         logger.info('currently processing: ' + filename + '.jrxml')

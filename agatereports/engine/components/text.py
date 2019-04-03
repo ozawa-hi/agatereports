@@ -201,6 +201,15 @@ def process_textFieldExpression(report, element, attributes):
     :param attributes:
     """
     data_value = replace_text(report, element.get('value'), attributes)
+    # if report['group_cur']:     # check if this is being processed within a group
+    #     group_name = report['group_cur'][-1]
+    #     # print(group_name, report['group_names'])
+    #     prev_value = report['group_names'].get(group_name)
+    #     # print(prev_value, data_value)
+    #     if prev_value is None or data_value != prev_value:
+    #         # report['group_names'].update({group_name: data_value})
+    #         draw_text(report, data_value, attributes)
+    # else:   # ['group_cur'] is empty -> not in a group then output value
     draw_text(report, data_value, attributes)
 
 

@@ -49,10 +49,12 @@ def process_query_string_band(report, element):
     """
     Read from jrxml queryString element and query a datasource.
     :param report: dictionary holding report information
-    :param element:
+    :param element: current jrxml element being processes.
     """
     sql_stmt = element.get('value')
-    if sql_stmt is not None:
+    if sql_stmt is None:
+        report['main_datasource'] = None
+    else:
         sql_stmt = sql_stmt.strip()
         # TODO instead of getting field names from query, get from 'field' element list
         report['main_datasource'].execute_query(sql_stmt)
@@ -65,7 +67,7 @@ def process_field_band(report, element):
     Process jrxml field element.
     Add field names and it's class (datatype) info to 'field_dict' in global 'report_info' variable.
     :param report: dictionary holding report information
-    :param element:
+    :param element: current jrxml element being processes.
     """
     field_attr = element.get('attr')
     name = field_attr.get('name')
@@ -86,7 +88,7 @@ def process_variable_band(report, element):
     """
     Process jrxml variable element.
     :param report: dictionary holding report information
-    :param element:
+    :param element: current jrxml element being processes.
     """
     pass    # currently not supported
 
@@ -95,76 +97,155 @@ def process_background_band(report, element):
     """
     Process jrxml background element.
     :param report: dictionary holding report information
-    :param element:
+    :param element: current jrxml element being processes.
     """
     pass    # currently not supported
 
 
-def groupExpression(report, element):
+def process_groupExpression(report, element):
     """
-
+    Process groupExpression element.
     :param report: dictionary holding report information
-    :param element:
+    :param element: current jrxml element being processes.
     :return:
     """
-    logger.debug('groupExpression:', element)
-    pass
+    if element is not None:
+        # group_name = report['group_cur'][-1]
+        report['group_names'].update({report['group_cur'][-1]: element.get('value')})
 
 
-def groupHeader(report, element):
+def process_groupHeader(report, element):
     """
-
+    Process group header element.
     :param report: dictionary holding report information
-    :param element:
-    :return:
+    :param element: current jrxml element being processes.
     """
-    logger.debug('groupHeader:', element)
-    pass
+    if element is not None:
+        if report.get('main_datasource') is None:  # when there is no datasource, just process static page
+            # row_data = None
+            check_for_new_page(report)
+
+            process_band_element(report, element)
+        else:
+            check_for_new_page(report)
+            report_elements_list.remove('detail')   # call details from below while loop
+            while True:
+                row = report['main_datasource'].fetch_row()
+                if row is None:     # there is no data in datasource then just print content in jrxml layout
+                    if not report['output_to_canvas']:
+                        check_for_new_page(report)
+                        process_band_element(report, element)
+                        report['output_to_canvas'] = True
+                    break
+                elif report['group_names'].get(report['group_cur'][-1]) is None:
+                    # print('no expression', report.get('group_names'))
+                    check_for_new_page(report)
+                    process_datasource_row(row, report)
+                    process_band_element(report, element)
+                    report['output_to_canvas'] = True
+
+                    detail_band = report.get('detail')
+                    if detail_band is not None and len(detail_band) > 0:
+                        detail = detail_band[0].get('detail')
+                        detail_band_child = detail.get('child')
+                        if detail_band_child is not None:
+                            detail_element = detail_band_child[0]
+                            # loop through detail band
+                            while row is not None:
+                                process_band(report, detail_element.get('band'))
+                                row = fetch_from_datasource(report)
+                    break
+                else:   # if there is some row in datasource
+                    check_for_new_page(report)
+                    process_datasource_row(row, report)
+                    # check if there is a prev value or if there is current group
+                    if not report['prev_value'] or report['group_cur'] is None:
+                        process_band_element(report, element)
+                        report['prev_value'] = report['row_data']
+                        report['output_to_canvas'] = True
+                    else:
+                        cur_group_value = report['row_data'].get(report['group_cur'][-1])
+                        if report['prev_value'].get(report['group_cur'][-1]) != cur_group_value:
+                            process_band_element(report, element)
+                            report['prev_value'] = report['row_data']
+                            report['output_to_canvas'] = True
 
 
-def groupFooter(report, element):
+def process_groupFooter(report, element):
     """
-
+    Process groupFooter element.
     :param report: dictionary holding report information
-    :param element:
-    :return:
+    :param element: current jrxml element being processes.
     """
-    logger.debug('group footer:', element)
-    pass
+    if element is not None:
+        if report.get('canvas') is None:
+            create_canvas(report)
+        process_band_element(report, element)
 
 
 """supported jrxml elements under group element"""
 group_element_dict={
-    'groupExpression': groupExpression,
-    'groupHeader': groupHeader,
-    'groupFooter': groupFooter
+    'groupExpression': process_groupExpression,
+    'groupHeader': process_groupHeader,
+    'groupFooter': process_groupFooter
 }
 
 
 def process_group_band(report, element):
     """
-
+    Process group element.
     :param report: dictionary holding report information
-    :param element:
-    :return:
+    :param element: current jrxml element being processes.
     """
     group_attr = element.get('attr')
-    name = group_attr.get('name')
+    report['group_names'].update({group_attr.get('name'): None})
+    report['group_cur'].append(group_attr.get('name'))
+    # report['group_cur'] = group_attr.get('name')
 
-    logger.debug(element)
     if element.get('child') is not None:
         for tag in element.get('child'):
             for key, value in tag.items():
                 if group_element_dict.get(key) is not None:
                     group_element_dict[key](report, value)
+    report['group_cur'].pop()
+
+
+    # if report.get('main_datasource') is None:  # when there is no datasource, just process static page
+    #     row_data = None
+    #     check_for_new_page(report)
+    #
+    #
+    #
+    # else:
+    #     check_for_new_page(report)
+    #
+    #
+    #     # if there is a field in group's textFieldExpression then loop else just process
+    #     while True:
+    #
+    #         row = report['main_datasource'].fetch_row()
+    #
+    #         report['variables']['REPORT_COUNT']['value'] += 1
+    #         report['variables']['PAGE_COUNT']['value'] += 1
+    #
+    #         if row is None:
+    #             break
+    #         report['variables']['COLUMN_COUNT']['value'] += 1
+    #
+    #         if element.get('child') is not None:
+    #             for tag in element.get('child'):
+    #                 for key, value in tag.items():
+    #                     if group_element_dict.get(key) is not None:
+    #                         group_element_dict[key](report, value)
+    #
+    # report['output_to_canvas'] = True   # TODO this needs to be moved to code actually writing to canvas
 
 
 def process_title_band(report, element=None):
     """
-
+    Process title element.
     :param report: dictionary holding report information
-    :param element:
-    :return:
+    :param element: current jrxml element being processes.
     """
     if not report['output_to_canvas']:
         if report.get('canvas') is None:
@@ -174,9 +255,9 @@ def process_title_band(report, element=None):
 
 def page_header_band(report, element=None, force=False):
     """
-
+    Process pageHeader element.
     :param report: dictionary holding report information
-    :param element:
+    :param element: current jrxml element being processes.
     :param force: True if unconditionally output, False if only output if nothing is yet output to canvas
     """
     if not report['output_to_canvas'] or force:
@@ -192,9 +273,9 @@ def page_header_band(report, element=None, force=False):
 
 def column_header_band(report, element=None, force=False):
     """
-
+    Process columnHeader element.
     :param report: dictionary holding report information
-    :param element:
+    :param element: current jrxml element being processes.
     :param force: True if unconditionally output, False if only output if nothing is yet output to canvas
     """
     if not report['output_to_canvas'] or force:
@@ -209,8 +290,8 @@ def column_header_band(report, element=None, force=False):
 
 def get_band_height(element):
     """
-
-    :param element:
+    Return height the the specified element.
+    :param element: current jrxml element being processes.
     :return:
     """
     return float(element['child'][0]['band']['attr']['height'])
@@ -218,9 +299,9 @@ def get_band_height(element):
 
 def calc_column_footer_band_height(report):
     """
-
+    Calculate column footer band height.
     :param report: dictionary holding report information
-    :return:
+    :return: height of column footer band.
     """
     if report.get('columnFooter') is None:
         return 0
@@ -230,9 +311,9 @@ def calc_column_footer_band_height(report):
 
 def column_footer_band(report, element=None):
     """
-
+    Process columnFooter element.
     :param report: dictionary holding report information
-    :param element:
+    :param element: current jrxml element being processes.
     :return:
     """
     if element is None:
@@ -247,7 +328,7 @@ def column_footer_band(report, element=None):
 
 def calc_page_footer_band_height(report):
     """
-
+    Calculate pageFooter band height.
     :param report: dictionary holding report information
     :return: page footer band height
     """
@@ -277,7 +358,7 @@ def summary_band(report, element):
     """
     Process jrxml 'summmary' element.
     :param report: dictionary holding report information
-    :param element:
+    :param element: current jrxml element being processes.
     """
     if report.get('canvas') is None:
         create_canvas(report)
@@ -318,7 +399,7 @@ def process_band(report, element):
     """
     Process jrxml band element. Page breaks are inserted when there is not enough space to write a band.
     :param report: dictionary holding report information
-    :param element:
+    :param element: current jrxml element being processes.
     """
     band_settings = element.get('attr')
     band_height = int(band_settings.get('height', '34'))
@@ -379,17 +460,42 @@ def check_for_new_page(report):
             report_elements_dict['columnHeader'](report, report['columnHeader'][0].get('columnHeader'))
 
 
+def process_datasource_row(row, report):
+    if type(row) == tuple or type(row) == list:  # regular result set
+        # TODO instead of creating a dictionary, directly use list instead.
+        #  Replace using Field elements entries
+        report['row_data'] = dict((field, value) for field, value in zip(report['field_names'], row))
+    elif type(row) == psycopg2.extras.DictRow:  # result in dictionary format
+        report['row_data'] = row
+    else:
+        logging.error("invalid datasource format.")
+        report['row_data'] = None
+
+
+def fetch_from_datasource(report):
+    row = report['main_datasource'].fetch_row()
+
+    report['variables']['REPORT_COUNT']['value'] += 1
+    report['variables']['PAGE_COUNT']['value'] += 1
+
+    # if row is None:
+    #     break
+    if row is not None:
+        report['variables']['COLUMN_COUNT']['value'] += 1
+        process_datasource_row(row, report)
+    return row
+
+
 def process_detail_band_element(report, element):
     """
     Loop through datasource and output detail band rows
     :param report: dictionary holding report information
     :param element: 'detail' jrxml element
     """
-    # global report_info, variables   #, page_width, page_height, cur_y, showBoundary
 
     band_element = element.get('child')
     if band_element is not None:    # only process if there is a jrxml 'band' element
-        title_element = band_element[0]
+        detail_element = band_element[0]
 
         # check_for_new_page(report)
 
@@ -399,41 +505,41 @@ def process_detail_band_element(report, element):
 
             # process_band(report, title_element.get('band'), row_data)
 
-            process_band(report, title_element.get('band'))
+            process_band(report, detail_element.get('band'))
         else:
             # fetch row from datasource and process each row
             check_for_new_page(report)
-            while True:
+            row = fetch_from_datasource(report)
+            while row is not None:
+                # if fetch_from_datasource(report) is None:
+                #     break;
                 # if report['main_datasource'] is not None:
-                row = report['main_datasource'].fetch_row()
-
-                report['variables']['REPORT_COUNT']['value'] += 1
-                report['variables']['PAGE_COUNT']['value'] += 1
-                # if report.get('canvas') is None:
-                #     create_canvas(report)
-                #     if report.get('title') is not None:
-                #         report_elements_dict['title'](report, report['title'][0].get('title'))
-                #     if report.get('pageHeader') is not None:
-                #         report_elements_dict['pageHeader'](report, report['pageHeader'][0].get('pageHeader'))
-                #     if report.get('columnHeader') is not None:
-                #         report_elements_dict['columnHeader'](report, report['columnHeader'][0].get('columnHeader'))
-
-                if row is None:
-                    break
-                report['variables']['COLUMN_COUNT']['value'] += 1
-
-                if type(row) == tuple or type(row) == list:  # regular result set
-                    # TODO instead of creating a dictionary, directly use list instead.
-                    #  Replace using Field elements entries
-                    report['row_data'] = dict((field, value) for field, value in zip(report['field_names'], row))
-                elif type(row) == psycopg2.extras.DictRow:  # result in dictionary format
-                    report['row_data'] = row
-                else:
-                    logging.error("invalid datasource format.")
-                    report['row_data'] = None
-                process_band(report, title_element.get('band'))
+                # row = report['main_datasource'].fetch_row()
+                #
+                # report['variables']['REPORT_COUNT']['value'] += 1
+                # report['variables']['PAGE_COUNT']['value'] += 1
+                #
+                # if row is None:
+                #     break
+                # report['variables']['COLUMN_COUNT']['value'] += 1
+                #
+                # process_datasource_row(row, report)
+                process_band(report, detail_element.get('band'))
+                row = fetch_from_datasource(report)
                 # TODO if page per record, then set report['canvas'] = None
-    report['output_to_canvas'] = True
+
+                # if type(row) == tuple or type(row) == list:  # regular result set
+                #     # TODO instead of creating a dictionary, directly use list instead.
+                #     #  Replace using Field elements entries
+                #     report['row_data'] = dict((field, value) for field, value in zip(report['field_names'], row))
+                # elif type(row) == psycopg2.extras.DictRow:  # result in dictionary format
+                #     report['row_data'] = row
+                # else:
+                #     logging.error("invalid datasource format.")
+                #     report['row_data'] = None
+                # process_band(report, detail_element.get('band'))
+                # # TODO if page per record, then set report['canvas'] = None
+    report['output_to_canvas'] = True   # TODO this needs to be moved to code actually writing to canvas
 
 
 def process_last_page_footer(report, element):
@@ -500,7 +606,7 @@ report_elements_list = [
     # "title",          # process title, pageHeader, columnHeader after later to make it possible to have
     # "pageHeader",     # filename based on datasource
     # "columnHeader",
-    # "group",          # TODO currently not supported. Need to read datasource in group
+    "group",          # TODO currently not supported. Need to read datasource in group
     "detail",
     'summary',
     "columnFooter",
