@@ -89,7 +89,7 @@ Usage Sample
         config = {'adapter': 'mysql', 'host': 'localhost', 'port': '3306', 'user': 'python', 'password': 'python',
                   'database': 'agatereports'}
 
-        pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_config=config)
+        pdf_page = BasicReport(jrxml_filename=jrxml_filename, output_filename=output_filename, data_source=config)
         pdf_page.generate_report()
 
 
