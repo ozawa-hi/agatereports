@@ -1,5 +1,8 @@
 AgateReports
 
+This project has moved to the following url:
+https://github.com/hozawa/agatereports
+
 Pure Python engine to generate reports from JasperReports jrxml file.
 ==============================================================================
 
